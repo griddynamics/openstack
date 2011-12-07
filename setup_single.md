@@ -86,6 +86,7 @@ echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO $DB_USER IDENTIFIED BY
 '$DB_PASS';" | mysql -uroot -p$DB_PASS mysql
 echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO root IDENTIFIED BY
 '$DB_PASS';" | mysql -uroot -p$DB_PASS mysql
+nova-manage db sync
 {% endhighlight %}
 
 ## Step 4. Run services
