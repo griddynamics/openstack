@@ -23,7 +23,7 @@ You can can find new about our OpenStack activities on our
 with OpenStack builds for Fedora-based Linux distributions (RHEL, CentOS,
 Scientific Linux)
 
-[Single Node Setup](setup_single.html) -- how to setup installation on Single
+[Single Node Install](setup_single.html) -- how to setup installation on Single
 Node (for testing, not for production)
 
 

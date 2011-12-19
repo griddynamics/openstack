@@ -1,5 +1,5 @@
 ---
-title: Single Node Setup
+title: Single Node Install
 layout: page
 ---
 
@@ -23,7 +23,7 @@ repository. To include our repository create a file `gd-openstack.repo` in
 {% highlight ini %}
 [gd]
 name=Packages from GridDynamics
-url=http://yum.griddynamics.net/yum/diablo
+baseurl=http://yum.griddynamics.net/yum/diablo
 enabled=1
 gpgcheck=0
 priority=1
