@@ -1,0 +1,234 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The nova_billing.db.sqlalchemy.api Module &mdash; nova-billing v0.0.2 documentation</title>
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-scrollspy.js"></script>
+    <link rel="top" title="nova-billing v0.0.2 documentation" href="../index.html" />
+    <link rel="up" title="Nova Billing Modules" href="autoindex.html" />
+    <link rel="next" title="The nova_billing.db.sqlalchemy.models Module" href="nova_billing.db.sqlalchemy.models.html" />
+    <link rel="prev" title="The nova_billing.amqp Module" href="nova_billing.amqp.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($span, minLevel) {
+    var $tocList = $("<ul/>").attr('class', "dropdown-menu"),
+      findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 10 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          // Add list element.
+          $tocList.append($("<li/>").append($item));
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    // Start construction and return.
+    findA($span);
+
+    // Wipe out old list and patch in new one.
+    return $span.empty("ul").append($tocList);
+  };
+
+  $(document).ready(function () {
+    // Patch the global and local TOC's to be bootstrap-compliant.
+    patchToc($("span.globaltoc"), 1);
+    patchToc($("span.localtoc"), 2);
+
+    // Activate.
+    $('#topbar').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  <div class="topbar" data-scrollspy="scrollspy" >
+    <div class="topbar-inner">
+      <div class="container">
+        <a class="brand" href="../index.html">nova-billing v0.0.2 documentation</a>
+        <ul class="nav">
+          
+            <li class="dropdown" data-dropdown="dropdown">
+  <a href="../index.html"
+     class="dropdown-toggle">Site</a>
+  <span class="globaltoc"><ul class="simple">
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devref/index.html">Developer Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../restapi.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">Configuration</a></li>
+</ul>
+</span>
+</li>
+            
+          
+          
+            
+  <li><a href="nova_billing.amqp.html"
+         title="Previous Chapter: The nova_billing.amqp Module">&laquo; The nova_billing...</a></li>
+  <li><a href="nova_billing.db.sqlalchemy.models.html"
+         title="Next Chapter: The nova_billing.db.sqlalchemy.models Module">The nova_billing... &raquo;</a></li>
+          
+          
+            
+          
+        </ul>
+        <ul class="nav secondary-nav">
+          
+            
+<form class="pull-left" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="container">
+   
+  <div class="section" id="module-nova_billing.db.sqlalchemy.api">
+<span id="the-nova-billing-db-sqlalchemy-api-module"></span><h1>The nova_billing.db.sqlalchemy.api Module<a class="headerlink" href="#module-nova_billing.db.sqlalchemy.api" title="Permalink to this headline">¶</a></h1>
+<p>Nova Billing API.</p>
+<dl class="function">
+<dt id="nova_billing.db.sqlalchemy.api.configure_backend">
+<tt class="descclassname">nova_billing.db.sqlalchemy.api.</tt><tt class="descname">configure_backend</tt><big>(</big><big>)</big><a class="headerlink" href="#nova_billing.db.sqlalchemy.api.configure_backend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform backend initialization.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nova_billing.db.sqlalchemy.api.instance_info_create">
+<tt class="descclassname">nova_billing.db.sqlalchemy.api.</tt><tt class="descname">instance_info_create</tt><big>(</big><em>values</em>, <em>session=None</em><big>)</big><a class="headerlink" href="#nova_billing.db.sqlalchemy.api.instance_info_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and store an <tt class="docutils literal"><span class="pre">InstanceInfo</span></tt> object in the database.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nova_billing.db.sqlalchemy.api.instance_info_get">
+<tt class="descclassname">nova_billing.db.sqlalchemy.api.</tt><tt class="descname">instance_info_get</tt><big>(</big><em>self</em>, <em>id</em>, <em>session=None</em><big>)</big><a class="headerlink" href="#nova_billing.db.sqlalchemy.api.instance_info_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an <tt class="docutils literal"><span class="pre">InstanceInfo</span></tt> object with the given <tt class="docutils literal"><span class="pre">id</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nova_billing.db.sqlalchemy.api.instance_info_get_latest">
+<tt class="descclassname">nova_billing.db.sqlalchemy.api.</tt><tt class="descname">instance_info_get_latest</tt><big>(</big><em>instance_id</em>, <em>session=None</em><big>)</big><a class="headerlink" href="#nova_billing.db.sqlalchemy.api.instance_info_get_latest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the latest <tt class="docutils literal"><span class="pre">InstanceInfo</span></tt> object with the given <tt class="docutils literal"><span class="pre">instance_id</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nova_billing.db.sqlalchemy.api.instance_segment_create">
+<tt class="descclassname">nova_billing.db.sqlalchemy.api.</tt><tt class="descname">instance_segment_create</tt><big>(</big><em>values</em>, <em>session=None</em><big>)</big><a class="headerlink" href="#nova_billing.db.sqlalchemy.api.instance_segment_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and store an <tt class="docutils literal"><span class="pre">InstanceSegment</span></tt> object in the database.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nova_billing.db.sqlalchemy.api.instance_segment_end">
+<tt class="descclassname">nova_billing.db.sqlalchemy.api.</tt><tt class="descname">instance_segment_end</tt><big>(</big><em>instance_id</em>, <em>end_at</em>, <em>session=None</em><big>)</big><a class="headerlink" href="#nova_billing.db.sqlalchemy.api.instance_segment_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>End all <tt class="docutils literal"><span class="pre">InstanceSegment</span></tt> objects with  the given <tt class="docutils literal"><span class="pre">instance_id</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nova_billing.db.sqlalchemy.api.instances_on_interval">
+<tt class="descclassname">nova_billing.db.sqlalchemy.api.</tt><tt class="descname">instances_on_interval</tt><big>(</big><em>period_start</em>, <em>period_stop</em>, <em>project_id=None</em><big>)</big><a class="headerlink" href="#nova_billing.db.sqlalchemy.api.instances_on_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve statistics for the given interval [<tt class="docutils literal"><span class="pre">period_start</span></tt>, <tt class="docutils literal"><span class="pre">period_stop</span></tt>]. 
+<tt class="docutils literal"><span class="pre">project_id=None</span></tt> means all projects.</p>
+<p>Example of the returned value:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;systenant&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="mi">12</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&quot;created_at&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s">&quot;destroyed_at&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="s">&quot;running&quot;</span><span class="p">:</span> <span class="mi">86400</span><span class="p">,</span>
+            <span class="s">&quot;usage&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;local_gb&quot;</span><span class="p">:</span> <span class="mi">56</span><span class="p">,</span> <span class="s">&quot;memory_mb&quot;</span><span class="p">:</span> <span class="mi">89</span><span class="p">,</span> <span class="s">&quot;vcpus&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+        <span class="p">},</span>
+        <span class="mi">14</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&quot;created_at&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+            <span class="s">&quot;destroyed_at&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s">&quot;running&quot;</span><span class="p">:</span> <span class="mi">2419200</span><span class="p">,</span>
+            <span class="s">&quot;usage&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;local_gb&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="s">&quot;memory_mb&quot;</span><span class="p">:</span> <span class="mi">45</span><span class="p">,</span> <span class="s">&quot;vcpus&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s">&quot;tenant12&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="mi">24</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&quot;created_at&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s">&quot;destroyed_at&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="s">&quot;running&quot;</span><span class="p">:</span> <span class="mi">86400</span><span class="p">,</span>
+            <span class="s">&quot;usage&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;local_gb&quot;</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span> <span class="s">&quot;memory_mb&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s">&quot;vcpus&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">a dictionary where keys are project ids and values are project statistics.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right"><a href="#">Back to top</a></p>
+    <p>
+        &copy; Copyright 2011, Alessio Ababilov, Ivan Kolodyazhny (GridDynamics Openstack Core Team).<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

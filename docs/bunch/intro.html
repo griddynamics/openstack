@@ -1,0 +1,187 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; Bunch v0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-scrollspy.js"></script>
+    <link rel="top" title="Bunch v0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Features" href="features.html" />
+    <link rel="prev" title="Bunch" href="index.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($span, minLevel) {
+    var $tocList = $("<ul/>").attr('class', "dropdown-menu"),
+      findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 10 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          // Add list element.
+          $tocList.append($("<li/>").append($item));
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    // Start construction and return.
+    findA($span);
+
+    // Wipe out old list and patch in new one.
+    return $span.empty("ul").append($tocList);
+  };
+
+  $(document).ready(function () {
+    // Patch the global and local TOC's to be bootstrap-compliant.
+    patchToc($("span.globaltoc"), 1);
+    patchToc($("span.localtoc"), 2);
+
+    // Activate.
+    $('#topbar').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  <div class="topbar" data-scrollspy="scrollspy" >
+    <div class="topbar-inner">
+      <div class="container">
+        <a class="brand" href="index.html">Bunch v0.0.1 documentation</a>
+        <ul class="nav">
+          
+            <li class="dropdown" data-dropdown="dropdown">
+  <a href="index.html"
+     class="dropdown-toggle">Site</a>
+  <span class="globaltoc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing_tests.html">Writing Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_reports.html">Test Reports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Road Map</a></li>
+</ul>
+</span>
+</li>
+            <li class="dropdown" data-dropdown="dropdown">
+  <a href="#"
+     class="dropdown-toggle">Page</a>
+  <span class="localtoc"><ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#what-is-bunch">What is Bunch?</a></li>
+<li><a class="reference internal" href="#motivation">Motivation</a></li>
+<li><a class="reference internal" href="#benefits">Benefits</a></li>
+</ul>
+</li>
+</ul>
+</span>
+</li>
+          
+          
+            
+  <li><a href="index.html"
+         title="previous chapter">&laquo; Bunch</a></li>
+  <li><a href="features.html"
+         title="next chapter">Features &raquo;</a></li>
+          
+          
+            
+          
+        </ul>
+        <ul class="nav secondary-nav">
+          
+            
+<form class="pull-left" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="container">
+   
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-bunch">
+<h2>What is Bunch?<a class="headerlink" href="#what-is-bunch" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">Bunch</span></tt> is tool for grouping, managing and running tests written as <tt class="docutils literal"><span class="pre">Lettuce</span></tt> features.</p>
+</div>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<p>The main reason for Bunch was the motivation to write more flexible and powerful tests with Lettuce. The key points to improve were:</p>
+<ul class="simple">
+<li><strong>Avoid hardcoded values in test scenarios.</strong> Lettuce offers the only way for data-driven scenarios. It does it via scenario outlines. That means that all data is stored in script itself. External data sources may be only supported by your own test code. Bunch fills that gap introducing Jinja2 templates and YAML configuration files. Feature templates stay readable but gain flexibility. Every test execution produces regular Lettuce scenarios thus saving BDD style. Scenarios remain comprehensible for end-user.</li>
+<li><strong>Write test fixtures explicitly.</strong> It should be possible to write setup and teardown BDD stories. It is also important to have behavior specifications for installation procedures.</li>
+<li><strong>Share and re-use test fixtures, specify that test depends on specific fixtures</strong> Tests should be self-suffucient and should not rely on the state created by other tests. However It is often a huge overhead when each test performs its own setup which may always the same. Bunch provides the concept of &#8220;dependencies&#8221; between tests and test fixtures.</li>
+<li><strong>Tests are environment agnostic but test fixtures are environment dependent</strong> Bunch enables writing environment agnostic tests by moving all environment specific action into test fixtures. Thus test fixtures may have multiple versions aimed for different environments.</li>
+</ul>
+</div>
+<div class="section" id="benefits">
+<h2>Benefits<a class="headerlink" href="#benefits" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Bunch</span></tt> offers explicit separation of test fixtures from test scenarios by dividing it into setup, teardown and test scripts.</li>
+<li><tt class="docutils literal"><span class="pre">Bunch</span></tt> encourages writing clean, self-sufficient and multi-environment tests, which can be executed in parallel.</li>
+<li><tt class="docutils literal"><span class="pre">Bunch</span></tt> provides more flexibility for test parameterization - test scenarios are treated as templates, which get parameterized upon execution.</li>
+</ul>
+</div>
+</div>
+
+
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right"><a href="#">Back to top</a></p>
+    <p>
+        &copy; Copyright 2011, Grid Dynamics.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

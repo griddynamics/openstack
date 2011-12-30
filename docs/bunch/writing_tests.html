@@ -1,0 +1,241 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Writing Tests &mdash; Bunch v0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-scrollspy.js"></script>
+    <link rel="top" title="Bunch v0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Running Tests" href="running_tests.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($span, minLevel) {
+    var $tocList = $("<ul/>").attr('class', "dropdown-menu"),
+      findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 10 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          // Add list element.
+          $tocList.append($("<li/>").append($item));
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    // Start construction and return.
+    findA($span);
+
+    // Wipe out old list and patch in new one.
+    return $span.empty("ul").append($tocList);
+  };
+
+  $(document).ready(function () {
+    // Patch the global and local TOC's to be bootstrap-compliant.
+    patchToc($("span.globaltoc"), 1);
+    patchToc($("span.localtoc"), 2);
+
+    // Activate.
+    $('#topbar').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  <div class="topbar" data-scrollspy="scrollspy" >
+    <div class="topbar-inner">
+      <div class="container">
+        <a class="brand" href="index.html">Bunch v0.0.1 documentation</a>
+        <ul class="nav">
+          
+            <li class="dropdown" data-dropdown="dropdown">
+  <a href="index.html"
+     class="dropdown-toggle">Site</a>
+  <span class="globaltoc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Writing Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_reports.html">Test Reports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Road Map</a></li>
+</ul>
+</span>
+</li>
+            <li class="dropdown" data-dropdown="dropdown">
+  <a href="#"
+     class="dropdown-toggle">Page</a>
+  <span class="localtoc"><ul>
+<li><a class="reference internal" href="#">Writing Tests</a><ul>
+<li><a class="reference internal" href="#organizing-test-scenarios">Organizing Test Scenarios</a></li>
+<li><a class="reference internal" href="#test-parametrization">Test parametrization</a></li>
+<li><a class="reference internal" href="#test-fixtures-and-dependencies">Test Fixtures and Dependencies</a></li>
+<li><a class="reference internal" href="#sample-tests">Sample tests</a></li>
+</ul>
+</li>
+</ul>
+</span>
+</li>
+          
+          
+            
+  <li><a href="installation.html"
+         title="previous chapter">&laquo; Installation</a></li>
+  <li><a href="running_tests.html"
+         title="next chapter">Running Tests &raquo;</a></li>
+          
+          
+            
+          
+        </ul>
+        <ul class="nav secondary-nav">
+          
+            
+<form class="pull-left" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="container">
+   
+  <div class="section" id="writing-tests">
+<h1>Writing Tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">¶</a></h1>
+<p>Bunch test scenarios are basically <tt class="docutils literal"><span class="pre">Lettuce</span></tt> feature files which are organized in special order. See <a class="reference external" href="http://lettuce.it">Lettuce</a> web site for details.</p>
+<div class="section" id="organizing-test-scenarios">
+<h2>Organizing Test Scenarios<a class="headerlink" href="#organizing-test-scenarios" title="Permalink to this headline">¶</a></h2>
+<p>Tests are grouped into bunches. All tests in a bunch are considered to be independent and may be executed in any order or even in parallel.</p>
+<p><tt class="docutils literal"><span class="pre">Test</span></tt> is a group of Lettuce scenarios of three types located in the same directory. These types are differentiated by file extensions:</p>
+<ul class="simple">
+<li><cite>&lt;name&gt;.test</cite> is main scenario for test <cite>&lt;name&gt;</cite></li>
+<li><cite>&lt;name&gt;.&lt;configuration_name&gt;.setup</cite> is setup fixture for test <cite>&lt;name&gt;</cite> intended for test configuration <cite>&lt;configuration_name&gt;</cite></li>
+<li><cite>&lt;name&gt;.&lt;configuration_name&gt;.teardown</cite> is teardown fixture for test <cite>&lt;name&gt;</cite> intended for test configuration <cite>&lt;configuration_name&gt;</cite></li>
+</ul>
+<p><tt class="docutils literal"><span class="pre">Bunch</span></tt> consists  of <tt class="docutils literal"><span class="pre">tests</span></tt> and <tt class="docutils literal"><span class="pre">config.yaml</span></tt> file. All bunch items are located in the same directory, i.e. all Lettuce scenarios, Python files and configuration data.</p>
+<p><tt class="docutils literal"><span class="pre">config.yaml</span></tt> is bunch-wide configuration file containing parameter values for scenario templates.</p>
+</div>
+<div class="section" id="test-parametrization">
+<h2>Test parametrization<a class="headerlink" href="#test-parametrization" title="Permalink to this headline">¶</a></h2>
+<p>Every Lettuce scenarios in a bunch is considered as template. That means that scenarios may contain <tt class="docutils literal"><span class="pre">Jinja2</span></tt> template expressions. The template expression are expanded with values taken from <tt class="docutils literal"><span class="pre">config.yaml</span></tt> file. See examples below.</p>
+<p>If we have user item in the <tt class="docutils literal"><span class="pre">config.yaml</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">admin1</span>
+
+<span class="l-Scalar-Plain">openstack_services</span><span class="p-Indicator">:</span>
+ <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack_services</span><span class="p-Indicator">:</span>
+ <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack-nova-api</span>
+ <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack-nova-direct-api</span>
+ <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack-nova-compute</span>
+ <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack-nova-network</span>
+ <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack-nova-scheduler</span>
+ <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack-glance-api</span>
+ <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack-glance-registry</span>
+</pre></div>
+</div>
+<p>Then we can use it in the <tt class="docutils literal"><span class="pre">users.setup</span></tt>:</p>
+<div class="highlight-gherkin"><div class="highlight"><pre><span class="k">Feature:</span><span class="nf"> Make preparations for sample test</span>
+<span class="nf">        </span><span class="k">Scenario:</span><span class="nf"> Create admin user</span>
+<span class="k">            Given </span><span class="nf">every service is running:</span>
+<span class="k">                |</span><span class="s"> ServiceName</span><span class="k">   |</span><span class="nf"></span>
+<span class="nf">                {% for service in openstack_services %}</span>
+<span class="k">                |</span><span class="s"> {{ service }}</span><span class="k"> |</span><span class="nf"></span>
+<span class="nf">                {% endfor %}</span>
+<span class="nf">            </span><span class="k">When </span><span class="nf">I create nova admin user &quot;</span><span class="s">{{user.name}}</span><span class="nf">&quot;</span>
+<span class="nf">            </span><span class="k">Then </span><span class="nf">nova user &quot;</span><span class="s">{{user.name}}</span><span class="nf">&quot; exists</span>
+</pre></div>
+</div>
+<p>The presence of bunch config and templates is not necessary. If omitted then no parametrization is performed. It is also possible to use some global config file for each bunch execution:</p>
+<div class="highlight-bash"><div class="highlight"><pre>user@machine:~/tests<span class="nv">$bunch</span> -c /pathto/config  bunch_tests_dir results_dir
+</pre></div>
+</div>
+<p>The global config file can be used along with local per-bunch configs. In that case global variables are loaded first then local variables are loaded on bunch execution. The variables with the same names get overriden with local values.</p>
+</div>
+<div class="section" id="test-fixtures-and-dependencies">
+<h2>Test Fixtures and Dependencies<a class="headerlink" href="#test-fixtures-and-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>By default all tests are dependent from their fixtures if any. But it is possible to specify that test requires extra setup performed prior its execution. The dependency specification is performed via special Lettuce steps in *.test scenario:</p>
+<div class="highlight-gherkin"><div class="highlight"><pre><span class="k">Scenario:</span><span class="nf"> Setup prerequisites</span>
+<span class="nf">    Require setup: &quot;&lt;list of setup fixtures required&gt;&quot;</span>
+</pre></div>
+</div>
+<p>And</p>
+<div class="highlight-gherkin"><div class="highlight"><pre><span class="k">Scenario:</span><span class="nf"> Setup prerequisites</span>
+<span class="nf">    Require external setup: &quot;&lt;list of setup fixtures from other bunches&gt;&quot;</span>
+</pre></div>
+</div>
+<p>The <cite>&lt;list of setup fixtures required&gt;</cite> is the white-space or newline separated list of fixture names which should be executed and return successful result before test run. Setup scripts may be executed in parallel and started in the order specified in the &#8220;Require setup:&#8221; statement. Often setup actions rely on each other and so should be executed sequentially. For that reason syncronization quantifier may be used. Just put exclamation mark between fixture names, to specify the point of syncronization:</p>
+<div class="highlight-gherkin"><div class="highlight"><pre><span class="nf">setup</span><span class="s">1</span><span class="nf"> ! setup</span><span class="s">2</span><span class="nf"> setup</span><span class="s">3</span><span class="nf"> ! setup_final</span>
+</pre></div>
+</div>
+<p>This splits fixtures into groups. All fixtures within single group are executed in parallel. Also it is possible to make it run sequentially in specific order:</p>
+<div class="highlight-gherkin"><div class="highlight"><pre><span class="nf">setup</span><span class="s">1</span><span class="nf"> ! setup</span><span class="s">2</span><span class="nf"> ! setup</span><span class="s">3</span><span class="nf"> ! setup_final</span>
+</pre></div>
+</div>
+<p>The corresponding teardown scripts are executed after test is finished, so there is no need to specify that particular teardown is required.</p>
+</div>
+<div class="section" id="sample-tests">
+<h2>Sample tests<a class="headerlink" href="#sample-tests" title="Permalink to this headline">¶</a></h2>
+<p>See more sample test bunches in the &#8220;samples&#8221; directory under source code root.</p>
+</div>
+</div>
+
+
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right"><a href="#">Back to top</a></p>
+    <p>
+        &copy; Copyright 2011, Grid Dynamics.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

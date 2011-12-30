@@ -1,0 +1,184 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Running Tests &mdash; Bunch v0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-scrollspy.js"></script>
+    <link rel="top" title="Bunch v0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Test Reports" href="test_reports.html" />
+    <link rel="prev" title="Writing Tests" href="writing_tests.html" />
+<script type="text/javascript">
+(function () {
+  /**
+   * Patch TOC list.
+   *
+   * Will mutate the underlying span to have a correct ul for nav.
+   *
+   * @param $span: Span containing nested UL's to mutate.
+   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
+   */
+  var patchToc = function ($span, minLevel) {
+    var $tocList = $("<ul/>").attr('class', "dropdown-menu"),
+      findA;
+
+    // Find all a "internal" tags, traversing recursively.
+    findA = function ($elem, level) {
+      var level = level || 0,
+        $items = $elem.find("> li > a.internal, > ul, > li > ul");
+
+      // Iterate everything in order.
+      $items.each(function (index, item) {
+        var $item = $(item),
+          tag = item.tagName.toLowerCase(),
+          pad = 10 + ((level - minLevel) * 10);
+
+        if (tag === 'a' && level >= minLevel) {
+          // Add to existing padding.
+          $item.css('padding-left', pad + "px");
+          // Add list element.
+          $tocList.append($("<li/>").append($item));
+        } else if (tag === 'ul') {
+          // Recurse.
+          findA($item, level + 1);
+        }
+      });
+    };
+
+    // Start construction and return.
+    findA($span);
+
+    // Wipe out old list and patch in new one.
+    return $span.empty("ul").append($tocList);
+  };
+
+  $(document).ready(function () {
+    // Patch the global and local TOC's to be bootstrap-compliant.
+    patchToc($("span.globaltoc"), 1);
+    patchToc($("span.localtoc"), 2);
+
+    // Activate.
+    $('#topbar').dropdown();
+  });
+}());
+</script>
+
+  </head>
+  <body>
+  <div class="topbar" data-scrollspy="scrollspy" >
+    <div class="topbar-inner">
+      <div class="container">
+        <a class="brand" href="index.html">Bunch v0.0.1 documentation</a>
+        <ul class="nav">
+          
+            <li class="dropdown" data-dropdown="dropdown">
+  <a href="index.html"
+     class="dropdown-toggle">Site</a>
+  <span class="globaltoc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing_tests.html">Writing Tests</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_reports.html">Test Reports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Road Map</a></li>
+</ul>
+</span>
+</li>
+            <li class="dropdown" data-dropdown="dropdown">
+  <a href="#"
+     class="dropdown-toggle">Page</a>
+  <span class="localtoc"><ul>
+<li><a class="reference internal" href="#">Running Tests</a><ul>
+<li><a class="reference internal" href="#test-environment-specification">Test environment specification</a></li>
+<li><a class="reference internal" href="#execution-parallelism">Execution parallelism</a></li>
+</ul>
+</li>
+</ul>
+</span>
+</li>
+          
+          
+            
+  <li><a href="writing_tests.html"
+         title="previous chapter">&laquo; Writing Tests</a></li>
+  <li><a href="test_reports.html"
+         title="next chapter">Test Reports &raquo;</a></li>
+          
+          
+            
+          
+        </ul>
+        <ul class="nav secondary-nav">
+          
+            
+<form class="pull-left" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="container">
+   
+  <div class="section" id="running-tests">
+<h1>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h1>
+<p>Tests may be executed via <cite>bunch</cite> console script or via <cite>bunch.cli.main()</cite> function:</p>
+<div class="highlight-python"><pre>$bunch  samples/dummy results</pre>
+</div>
+<p>The <cite>results</cite> directory will contain parameterized scenarios and test results.</p>
+<div class="section" id="test-environment-specification">
+<h2>Test environment specification<a class="headerlink" href="#test-environment-specification" title="Permalink to this headline">¶</a></h2>
+<p>Use option &#8216;-e&#8217; to specify test environment for test execution. This option controls the set of test fixtures which should be used during test run:</p>
+<div class="highlight-python"><pre>$bunch -e clean samples/openstack-smoke/ rez2</pre>
+</div>
+</div>
+<div class="section" id="execution-parallelism">
+<h2>Execution parallelism<a class="headerlink" href="#execution-parallelism" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>-b</cite> command option controls bunch execution concurrency. It may have the following values:</p>
+<ul class="simple">
+<li><cite>serial</cite> - tests are executed in single thread</li>
+<li><cite>unlimited</cite> - all tests may be executed in parallel if possible</li>
+<li><cite>limited&lt;n&gt;</cite> - tests are executed within &lt;n&gt; threads</li>
+<li><cite>auto</cite> - tests are executed according to machine capabilities and the common sense</li>
+</ul>
+</div>
+</div>
+
+
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right"><a href="#">Back to top</a></p>
+    <p>
+        &copy; Copyright 2011, Grid Dynamics.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
