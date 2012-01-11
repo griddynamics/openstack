@@ -1,0 +1,156 @@
+<div class="document">
+<div class="section" id="play-with-openstack">
+<h1>Play With OpenStack</h1>
+<p>Is document was created for quick introduction to basic OpenStack
+functionality, like VM spawning. We assume that you have OpenStack installation
+available and want to start using it. To install OpenStack you can use our
+[Single Node Setup](setup_single.html) Document.</p>
+<p>Basic functionality covered in this document includes users and projects
+creation, assigning user into projects, image uploading and registration,
+spawning and destroying VMs.</p>
+<div class="section" id="users-and-projects">
+<h2>Users and Projects</h2>
+<p>First of all you can create, list and delete users from OpenStack with
+<tt class="docutils literal"><span class="pre">nova-manage</span> user</tt> command:</p>
+<div class="highlight"><pre><span class="gp">$</span> <span class="c"># list all available user actions:</span>
+<span class="gp">$</span> nova-manage user
+<span class="go">Available actions for user category:</span>
+<span class="go">    admin</span>
+<span class="go">    create</span>
+<span class="go">    delete</span>
+<span class="go">    exports</span>
+<span class="go">    list</span>
+<span class="go">    modify</span>
+<span class="go">    revoke</span>
+<span class="gp">$</span> <span class="c"># create user vasya:</span>
+<span class="gp">$</span> nova-manage user create vasya
+<span class="go">export EC2_ACCESS_KEY=a83c987d-52bf-43c0-9768-138654e7c06f</span>
+<span class="go">export EC2_SECRET_KEY=d9f674be-43c6-4307-b69e-aa59c31cfc7b</span>
+<span class="gp">$</span> nova-manage user create petya
+<span class="go">export EC2_ACCESS_KEY=d97f3c12-47c7-4d20-8bef-1edacbdba4a8</span>
+<span class="go">export EC2_SECRET_KEY=386aba22-eebb-430b-8eb9-8dc047590bac</span>
+<span class="gp">$</span> <span class="c"># list users:</span>
+<span class="gp">$</span> nova-manage user list
+<span class="go">vasya</span>
+<span class="go">petya</span>
+<span class="gp">$</span> <span class="c"># delete user:</span>
+<span class="gp">$</span> nova-manage user delete petya
+<span class="gp">$</span> nova-manage user list
+<span class="go">vasya</span>
+</pre></div>
+<p>The same action available for projects. To create a project you should specify
+user, who will be administrator of the project.</p>
+<div class="highlight"><pre><span class="gp">$</span> <span class="c"># list all available project commands:</span>
+<span class="gp">$</span> nova-manage project
+<span class="go">Available actions for project category:</span>
+<span class="go">    add</span>
+<span class="go">    create</span>
+<span class="go">    delete</span>
+<span class="go">    environment</span>
+<span class="go">    list</span>
+<span class="go">    modify</span>
+<span class="go">    quota</span>
+<span class="go">    remove</span>
+<span class="go">    scrub</span>
+<span class="go">    zipfile</span>
+<span class="gp">$</span> <span class="c"># create sample project:</span>
+<span class="gp">$</span> nova-manage project create sample vasya <span class="s2">&quot;Sample project&quot;</span>
+<span class="gp">$</span> nova-manage project list
+<span class="go">sample</span>
+</pre></div>
+<p>Now we can export authentication information from nova to access it remotely as
+user:</p>
+<div class="highlight"><pre><span class="gp">$</span> mkdir nova_auth
+<span class="gp">$</span> <span class="nb">cd </span>nova_auth
+<span class="gp">$</span> nova-manage project zipfile sample vasya
+<span class="gp">$</span> unzip nova.zip
+<span class="gp">$</span> . novarc
+</pre></div>
+</div>
+<div class="section" id="os-images">
+<h2>OS Images</h2>
+<p>To run VM instances we need prepare OS image first. If you do not have OS image
+you can create it for Yum based distribution as described on
+<a class="reference external" href="create-image-yum.html">Create OS Image Using Yum</a>.</p>
+<p>If you have image (root fs + kernel + initrd) you can register it with
+<tt class="docutils literal"><span class="pre">nova-manage</span> image all_register</tt> command:</p>
+<div class="highlight"><pre><span class="gp">$</span> sudo nova-manage image all_register image kernel initrd vasya img0 T x86_64
+<span class="go">Image registered to 1 (00000001).</span>
+<span class="go">Image registered to 2 (00000002).</span>
+<span class="go">Image registered to 3 (00000003).</span>
+<span class="gp">$</span> nova image-list
+<span class="go">+----+--------------+--------+</span>
+<span class="go">| ID |     Name     | Status |</span>
+<span class="go">+----+--------------+--------+</span>
+<span class="go">| 1  | None         | ACTIVE |</span>
+<span class="go">| 2  | None         | ACTIVE |</span>
+<span class="go">| 3  | img0         | ACTIVE |</span>
+<span class="go">+----+--------------+--------+</span>
+</pre></div>
+<div class="highlight"><pre><span class="gp">$</span> sudo nova-manage network create sample_network --fixed_range_v4<span class="o">=</span>192.168.35.1/24
+<span class="gp">$</span> nova keypair-add vasya_key &gt; id_rsa
+</pre></div>
+</div>
+<div class="section" id="manage-vms">
+<h2>Manage VMs</h2>
+<p>When we have image prepared we can spawn a new VM:</p>
+<div class="highlight"><pre><span class="gp">$</span> nova flavor-list
+<span class="go">+----+-----------+-----------+------+----------+-------+------------+----------+</span>
+<span class="go">| ID |    Name   | Memory_MB | Swap | Local_GB | VCPUs | RXTX_Quota | RXTX_Cap |</span>
+<span class="go">+----+-----------+-----------+------+----------+-------+------------+----------+</span>
+<span class="go">| 1  | m1.tiny   | 512       | 0    | 0        | 1     | 0          | 0        |</span>
+<span class="go">| 2  | m1.small  | 2048      | 0    | 20       | 1     | 0          | 0        |</span>
+<span class="go">| 3  | m1.medium | 4096      | 0    | 40       | 2     | 0          | 0        |</span>
+<span class="go">| 4  | m1.large  | 8192      | 0    | 80       | 4     | 0          | 0        |</span>
+<span class="go">| 5  | m1.xlarge | 16384     | 0    | 160      | 8     | 0          | 0        |</span>
+<span class="go">+----+-----------+-----------+------+----------+-------+------------+----------+</span>
+<span class="gp">$</span> nova boot --flavor<span class="o">=</span>1 --image<span class="o">=</span>6 --key_name vasya_key sample_vm
+<span class="go">+--------------+--------------------------------------+</span>
+<span class="go">|   Property   |                Value                 |</span>
+<span class="go">+--------------+--------------------------------------+</span>
+<span class="go">| accessIPv4   |                                      |</span>
+<span class="go">| accessIPv6   |                                      |</span>
+<span class="go">| adminPass    | GZv8S4B5B3VAYaPS                     |</span>
+<span class="go">| config_drive |                                      |</span>
+<span class="go">| created      | 2011-12-08T18:17:11Z                 |</span>
+<span class="go">| flavor       | m1.tiny                              |</span>
+<span class="go">| hostId       |                                      |</span>
+<span class="go">| id           | 1                                    |</span>
+<span class="go">| image        | img0                                 |</span>
+<span class="go">| key_name     | vasya_key                            |</span>
+<span class="go">| metadata     | {}                                   |</span>
+<span class="go">| name         | sample_vm                            |</span>
+<span class="go">| progress     | 0                                    |</span>
+<span class="go">| status       | BUILD                                |</span>
+<span class="go">| tenant_id    | sample                               |</span>
+<span class="go">| updated      | 2011-12-08T18:17:12Z                 |</span>
+<span class="go">| user_id      | vasya                                |</span>
+<span class="go">| uuid         | 36531b81-35db-41fe-a984-593d6eeece7a |</span>
+<span class="go">+--------------+--------------------------------------+</span>
+<span class="gp">$</span> nova show 2
+<span class="go">+------------------------+----------------------------------------------------------+</span>
+<span class="go">|        Property        |                          Value                           |</span>
+<span class="go">+------------------------+----------------------------------------------------------+</span>
+<span class="go">| accessIPv4             |                                                          |</span>
+<span class="go">| accessIPv6             |                                                          |</span>
+<span class="go">| config_drive           |                                                          |</span>
+<span class="go">| created                | 2011-12-08T18:23:12Z                                     |</span>
+<span class="go">| flavor                 | m1.tiny                                                  |</span>
+<span class="go">| hostId                 | ae60db64fd696eb45a2e37719adc4dcec611940794d5dedcf4c7883c |</span>
+<span class="go">| id                     | 2                                                        |</span>
+<span class="go">| image                  | sample_image                                             |</span>
+<span class="go">| key_name               | vasya_key                                                |</span>
+<span class="go">| metadata               | {}                                                       |</span>
+<span class="go">| name                   | sample_vm                                                |</span>
+<span class="go">| progress               | 100                                                      |</span>
+<span class="go">| sample_network network | 192.168.35.3                                             |</span>
+<span class="go">| status                 | ACTIVE                                                   |</span>
+<span class="go">| tenant_id              | sample                                                   |</span>
+<span class="go">| updated                | 2011-12-08T18:24:46Z                                     |</span>
+<span class="go">| user_id                | vasya                                                    |</span>
+<span class="go">| uuid                   | feee7103-1443-4198-9cc2-9342b0fd84bb                     |</span>
+<span class="go">+------------------------+----------------------------------------------------------+</span>
+</pre></div>
+</div>
+</div>
+</div>

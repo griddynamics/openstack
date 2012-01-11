@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <title>Single Node Install &mdash; GridDynamics OpenStack Portal</title>
+    <link rel="stylesheet" href="/openstack/media/css/bootstrap.css">
+    <link rel="stylesheet" href="/openstack/media/css/site.css">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+
+        #license {
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <a class="brand" href="/openstack">GridDynamics OpenStack Portal</a>
+            <ul class="nav">
+                <li><a href="https://github.com/griddynamics/openstack/wiki">Wiki</a></li>
+                <li><a href="https://github.com/griddynamics/openstack/issues">Issues</a></li>
+                <li><a href="http://openstackgd.wordpress.com/">Blog</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="content"><div class="document">
+<div class="section" id="single-node-install">
+<h1>Single Node Install</h1>
+<p>This page describes procedure of Single Node Setup. This setup can be used to
+became more familiar with OpenStack, play with API, testing or development
+needs. For production setup you need multi-node setup. We are supporting
+RHEL6.1, Scientific Linux 6.1 and CentOS 6 + CR distributions. For all of them
+installation procedure is the same except repositories with packages.</p>
+<p>For this installation all what you need is HW computer with KVM support and one
+of the supported Linux distribution installed.</p>
+<div class="section" id="step-1-include-repositories">
+<h2>Step 1. Include Repositories</h2>
+<p>For RHEL 6.1 you need only original DVD. All dependencies included in our
+repository. To include our repository create a file <cite>gd-openstack.repo</cite> in
+<cite>/etc/yum.repos.d</cite> directory with content:</p>
+<div class="highlight"><pre><span class="k">[gd]</span>
+<span class="na">name</span><span class="o">=</span><span class="s">Packages from GridDynamics</span>
+<span class="na">baseurl</span><span class="o">=</span><span class="s">http://yum.griddynamics.net/yum/diablo</span>
+<span class="na">enabled</span><span class="o">=</span><span class="s">1</span>
+<span class="na">gpgcheck</span><span class="o">=</span><span class="s">0</span>
+<span class="na">priority</span><span class="o">=</span><span class="s">1</span>
+</pre></div>
+<p>The same should be done for Scientific Linux 6.1</p>
+<p>For CentOS you should use different repository:</p>
+<div class="highlight"><pre><span class="k">[gd]</span>
+<span class="na">name</span><span class="o">=</span><span class="s">Packages from GridDynamics</span>
+<span class="na">url</span><span class="o">=</span><span class="s">http://yum.griddynamics.net/yum/diablo-centos</span>
+<span class="na">enabled</span><span class="o">=</span><span class="s">1</span>
+<span class="na">gpgcheck</span><span class="o">=</span><span class="s">0</span>
+<span class="na">priority</span><span class="o">=</span><span class="s">1</span>
+</pre></div>
+<p>And addiditionaly include EPEL and CR repositories.</p>
+</div>
+<div class="section" id="step-2-install-packages">
+<h2>Step 2. Install packages</h2>
+<p>For Single Node Setup you have to install mysql, mysql-server,
+openstack-nova-node-full, euca2ools and python-novaclient packages:</p>
+<div class="highlight"><pre><span class="gp">$</span> sudo yum install mysql mysql-server
+<span class="gp">$</span> sudo yum install openstack-nova-node-full
+<span class="gp">$</span> sudo yum install euca2ools
+<span class="gp">$</span> sudo yum install python-novaclient
+</pre></div>
+<p>All other packages will be installed as dependencies automatically.</p>
+</div>
+<div class="section" id="step-3-prepare-database">
+<h2>Step 3. Prepare Database</h2>
+<p>Nova uses MySQL to store information about running VMs (PostgreSQL is also
+possible to use).</p>
+<p>Use this script (run it without arguments) to prepare database for nova:</p>
+<div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">DB_NAME</span><span class="o">=</span>nova
+<span class="nv">DB_USER</span><span class="o">=</span>nova
+<span class="nv">DB_PASS</span><span class="o">=</span>nova
+<span class="nv">PWD</span><span class="o">=</span>rootpassword
+
+<span class="nv">HOSTS</span><span class="o">=</span><span class="s2">&quot;$@&quot;</span>
+
+mysqladmin -uroot -p<span class="nv">$PWD</span> -f drop nova
+mysqladmin -uroot -p<span class="nv">$PWD</span> create nova
+
+<span class="k">for </span>h in <span class="nv">$HOSTS</span> localhost; <span class="k">do</span>
+<span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;GRANT ALL PRIVILEGES ON $DB_NAME.* TO &#39;$DB_USER&#39;@&#39;$h&#39;</span>
+<span class="s2">IDENTIFIED BY &#39;$DB_PASS&#39;;&quot;</span> | mysql -uroot -p<span class="nv">$DB_PASS</span> mysql
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">&quot;GRANT ALL PRIVILEGES ON $DB_NAME.* TO $DB_USER IDENTIFIED BY</span>
+<span class="s2">&#39;$DB_PASS&#39;;&quot;</span> | mysql -uroot -p<span class="nv">$DB_PASS</span> mysql
+<span class="nb">echo</span> <span class="s2">&quot;GRANT ALL PRIVILEGES ON $DB_NAME.* TO root IDENTIFIED BY</span>
+<span class="s2">&#39;$DB_PASS&#39;;&quot;</span> | mysql -uroot -p<span class="nv">$DB_PASS</span> mysql
+nova-manage db sync
+</pre></div>
+</div>
+<div class="section" id="step-4-run-services">
+<h2>Step 4. Run services</h2>
+<p>We are ready to run services:</p>
+<div class="highlight"><pre><span class="gp">$</span> sudo service rabbitmq-server start
+<span class="gp">$</span> sudo service libvirtd start
+<span class="gp">$</span> sudo service openstack-nova-api start
+<span class="gp">$</span> sudo service openstack-nova-direct-api start
+<span class="gp">$</span> sudo service openstack-nova-compute start
+<span class="gp">$</span> sudo service openstack-nova-network start
+<span class="gp">$</span> sudo service openstack-nova-objectstore start
+<span class="gp">$</span> sudo service openstack-nova-scheduler start
+<span class="gp">$</span> sudo service openstack-glance-api start
+<span class="gp">$</span> sudo service openstack-glance-registry start
+</pre></div>
+</div>
+<div class="section" id="step-5-play-with-openstack">
+<h2>Step 5. Play with OpenStack</h2>
+<p>Now you are ready to use open stack. You can add users to open stack with
+<cite>nova-manage</cite> command, then create projects, upload images and start VMs.</p>
+</div>
+</div>
+</div>
+</div>
+
+        <footer>
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+                <img alt="Creative Commons License"
+                     style="border-width:0"
+                     src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png"/>
+            </a>
+            Grid Dynamics, 2011
+        </p>
+    </footer>
+
+
+</div>
+
+
+</body>
+</html>

@@ -1,116 +1,41 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>REST API &mdash; nova-billing v0.0.2 documentation</title>
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '0.0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-scrollspy.js"></script>
-    <link rel="top" title="nova-billing v0.0.2 documentation" href="index.html" />
-    <link rel="next" title="Configuration" href="config.html" />
-    <link rel="prev" title="Quickstart" href="quickstart.html" />
-<script type="text/javascript">
-(function () {
-  /**
-   * Patch TOC list.
-   *
-   * Will mutate the underlying span to have a correct ul for nav.
-   *
-   * @param $span: Span containing nested UL's to mutate.
-   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
-   */
-  var patchToc = function ($span, minLevel) {
-    var $tocList = $("<ul/>").attr('class', "dropdown-menu"),
-      findA;
-
-    // Find all a "internal" tags, traversing recursively.
-    findA = function ($elem, level) {
-      var level = level || 0,
-        $items = $elem.find("> li > a.internal, > ul, > li > ul");
-
-      // Iterate everything in order.
-      $items.each(function (index, item) {
-        var $item = $(item),
-          tag = item.tagName.toLowerCase(),
-          pad = 10 + ((level - minLevel) * 10);
-
-        if (tag === 'a' && level >= minLevel) {
-          // Add to existing padding.
-          $item.css('padding-left', pad + "px");
-          // Add list element.
-          $tocList.append($("<li/>").append($item));
-        } else if (tag === 'ul') {
-          // Recurse.
-          findA($item, level + 1);
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <title>nova-billing Project Documentation &mdash; GridDynamics OpenStack Portal</title>
+    <link rel="stylesheet" href="/openstack/media/css/bootstrap.css">
+    <link rel="stylesheet" href="/openstack/media/css/site.css">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
         }
-      });
-    };
 
-    // Start construction and return.
-    findA($span);
+        #license {
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
 
-    // Wipe out old list and patch in new one.
-    return $span.empty("ul").append($tocList);
-  };
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <a class="brand" href="/openstack">GridDynamics OpenStack Portal</a>
+            <ul class="nav">
+                <li><a href="https://github.com/griddynamics/openstack/wiki">Wiki</a></li>
+                <li><a href="https://github.com/griddynamics/openstack/issues">Issues</a></li>
+                <li><a href="http://openstackgd.wordpress.com/">Blog</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 
-  $(document).ready(function () {
-    // Patch the global and local TOC's to be bootstrap-compliant.
-    patchToc($("span.globaltoc"), 1);
-    patchToc($("span.localtoc"), 2);
-
-    // Activate.
-    $('#topbar').dropdown();
-  });
-}());
-</script>
-
-  </head>
-  <body>
-  <div class="topbar" data-scrollspy="scrollspy" >
-    <div class="topbar-inner">
-      <div class="container">
-        <a class="brand" href="index.html">nova-billing v0.0.2 documentation</a>
-        <ul class="nav">
-          
-            <li class="dropdown" data-dropdown="dropdown">
-  <a href="index.html"
-     class="dropdown-toggle">Site</a>
-  <span class="globaltoc"><ul class="simple">
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="devref/index.html">Developer Guide</a></li>
-</ul>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">REST API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
-</ul>
-</span>
-</li>
-            
-<li class="dropdown" data-dropdown="dropdown">
-  <a href="#"
-     class="dropdown-toggle">Page</a>
-  <span class="localtoc"><ul>
+<div class="container-fluid">
+    <div class="sidebar sphinx-toc">
+        <h3>Table of Content</h3>
+            <ul>
 <li><a class="reference internal" href="#">REST API</a><ul>
 <li><a class="reference internal" href="#request-format">Request format</a></li>
 <li><a class="reference internal" href="#report-format">Report format</a></li>
@@ -118,38 +43,21 @@
 </ul>
 </li>
 </ul>
-</span>
-</li>
-
-          
-          
-            
-  <li><a href="quickstart.html"
-         title="Previous Chapter: Quickstart">&laquo; Quickstart</a></li>
-  <li><a href="config.html"
-         title="Next Chapter: Configuration">Configuration &raquo;</a></li>
-          
-          
-            
-          
-        </ul>
-        <ul class="nav secondary-nav">
-          
-            
-<form class="pull-left" action="search.html" method="get">
-  <input type="text" name="q" placeholder="Search" />
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </ul>
-      </div>
+        <h3>Navigation</h3>
+        <ul>
+            <li>
+                <a href="/openstack/docs/nova-billing">To the beginning</a>
+            </li>
+                            <li><a href="quickstart.html"
+                       title="Quickstart">&lt;- Quickstart</a>
+                </li>
+                                        <li><a href="config.html"
+                       title="Configuration">-&gt; Configuration</a>
+                </li>
+                    </ul>
     </div>
-  </div>
 
-<div class="container">
-   
-  <div class="section" id="rest-api">
+    <div class="content"><div class="section" id="rest-api">
 <h1>REST API<a class="headerlink" href="#rest-api" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="request-format">
 <h2>Request format<a class="headerlink" href="#request-format" title="Permalink to this headline">¶</a></h2>
@@ -157,9 +65,10 @@
 <ol class="arabic simple">
 <li><tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/</span></tt> - report on available URLs and application name and version.</li>
 <li><tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/projects</span></tt> and <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/projects-all</span></tt> - statistics for all
-projects on current month.</li>
+projects.  Time period should be specified with <tt class="docutils literal"><span class="pre">period_start</span></tt>
+and <tt class="docutils literal"><span class="pre">period_end</span></tt> request parameters. If they are omitted, current month is assumed.</li>
 <li><tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/projects/{project}</span></tt> - statistics for requested
-<tt class="docutils literal"><span class="pre">{project}</span></tt> on current month.</li>
+<tt class="docutils literal"><span class="pre">{project}</span></tt>. Time period is determined as described in previous item.</li>
 <li><tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/projects-all/{time_period}</span></tt> - statistics for all
 projects on requested <tt class="docutils literal"><span class="pre">{time_period}</span></tt> (see below).</li>
 <li><tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/projects/{project}/{time_period}</span></tt> - statistics for requested
@@ -183,6 +92,16 @@ and the leading zero can be omitted.</li>
 </ol>
 <p>Date and time always is UTC in order to avoid problems with timezones and daylight saving time.
 So, <tt class="docutils literal"><span class="pre">{time_period}</span></tt> must be in UTC, and current month is also UTC.</p>
+<p>An additional request parameter <tt class="docutils literal"><span class="pre">include</span></tt> is used to specify what statistics should be returned.
+This parameter is one or two comma-separated items from the following list:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">instances</span></tt> or <tt class="docutils literal"><span class="pre">instances-long</span></tt> - short or long statistics for instances;</li>
+<li><tt class="docutils literal"><span class="pre">images</span></tt> or <tt class="docutils literal"><span class="pre">images-long</span></tt> - short or long statistics for images.</li>
+</ul>
+<p>Short form contains only summary for project, long statistics has additional information about individual instances or images.</p>
+<p>Statistics for both instances and images can be retrieved by giving two comma-separated items, i.e. <tt class="docutils literal"><span class="pre">include=instances-long,images</span></tt>.</p>
+<p>If <tt class="docutils literal"><span class="pre">include</span></tt> parameter is omitted, statistics for instances will be returned.
+It will be in short form for time period greater than 31 day and in long form otherwise.</p>
 </div>
 <div class="section" id="report-format">
 <h2>Report format<a class="headerlink" href="#report-format" title="Permalink to this headline">¶</a></h2>
@@ -266,10 +185,6 @@ Otherwise, <tt class="docutils literal"><span class="pre">projects</span></tt> k
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Project statistics&quot;</span><span class="p">,</span>
     <span class="s2">&quot;properties&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;instances_count&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Number of instances running on requested time period&quot;</span>
-        <span class="p">},</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
@@ -281,41 +196,64 @@ Otherwise, <tt class="docutils literal"><span class="pre">projects</span></tt> k
             <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Project URL&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;instances&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;items&quot;</span><span class="o">:</span> <span class="p">{</span>
-                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Instance statistics&quot;</span>
-            <span class="p">},</span>
             <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Statistics for instances running on requested time period&quot;</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Resource usage (sum for all instances)&quot;</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Project instances statistics&quot;</span>
         <span class="p">},</span>
-        <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Sum of running_sec for all instances&quot;</span>
+        <span class="s2">&quot;images&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Project images statistics&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">instances</span></tt> key is available only if time period is month or day and a
-particular project is requested (queries <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/projects/{project}</span></tt>,
-<tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/projects/{project}/{year}/{month}</span></tt>, and
-<tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/projects/{project}/{year}/{month}/{day}</span></tt>).</p>
-<p>Instance statistics object has the following schema:</p>
+<p>Project instances and project images statistics objects have the following schema:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Instance statistics&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Project items statistics&quot;</span><span class="p">,</span>
     <span class="s2">&quot;properties&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;instance_id&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;count&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Number of items count&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;items&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;items&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Individual item statistics&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Statistics for individual items&quot;</span>
+            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Resource usage (sum for all items)&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">items</span></tt> property is available for long form of statistics.</p>
+<p>Individual item statistics object has the following schema:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Individual item statistics&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;properties&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Instance ID&quot;</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;ID of the object&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;null&quot;</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Name of the object or null if none&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -325,13 +263,13 @@ particular project is requested (queries <tt class="docutils literal"><span clas
         <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Date of instance creation&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Date of object creation&quot;</span><span class="p">,</span>
             <span class="s2">&quot;format&quot;</span><span class="o">:</span> <span class="s2">&quot;date-time&quot;</span>
         <span class="p">},</span>
-        <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;lifetime_sec&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Time in seconds while instance was running on requested time period&quot;</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Time in seconds while the object was alive during the requested time period&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -339,31 +277,30 @@ particular project is requested (queries <tt class="docutils literal"><span clas
                 <span class="s2">&quot;string&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;null&quot;</span>
             <span class="p">],</span>
-            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Date of instance destruction (termination)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Date of object destruction (termination) or null if not destroyed&quot;</span><span class="p">,</span>
             <span class="s2">&quot;format&quot;</span><span class="o">:</span> <span class="s2">&quot;date-time&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Date of instance destruction is <tt class="docutils literal"><span class="pre">null</span></tt> if the instance is still running.</p>
 <p>Resource usage object has the following schema:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Resource usage&quot;</span><span class="p">,</span>
     <span class="s2">&quot;properties&quot;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span>
             <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Hard drive usage (GB * h)&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span>
             <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;CPU usage (number of CPUs * h)&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;required&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span>
             <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;RAM usage (MB * h)&quot;</span>
         <span class="p">}</span>
@@ -371,160 +308,138 @@ particular project is requested (queries <tt class="docutils literal"><span clas
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>If a property of resource usage object is omitted, it means that its value is zero.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<p>Statistics for <tt class="docutils literal"><span class="pre">systenant</span></tt> project on 2011 year:</p>
+<p>Instances statistics for <tt class="docutils literal"><span class="pre">systenant</span></tt> project on 2011 year:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="nx">$</span> <span class="nx">curl</span> <span class="s2">&quot;http://localhost:8787/projects/systenant/2011&quot;</span> <span class="o">|</span> <span class="nx">python</span> <span class="o">-</span><span class="nx">mjson</span><span class="p">.</span><span class="nx">tool</span>
 <span class="p">{</span>
     <span class="s2">&quot;period_end&quot;</span><span class="o">:</span> <span class="s2">&quot;2012-01-01T00:00:00Z&quot;</span><span class="p">,</span>
     <span class="s2">&quot;period_start&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-01-01T00:00:00Z&quot;</span><span class="p">,</span>
     <span class="s2">&quot;project&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;instances_count&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
-        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;systenant&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="mi">926399</span><span class="p">,</span>
-        <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://127.0.0.1:8787/projects/systenant&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">13560.144444444444</span><span class="p">,</span>
-            <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">1388558.7911111112</span><span class="p">,</span>
-            <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">678.0072222222223</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Statistics for <tt class="docutils literal"><span class="pre">systenant</span></tt> project on December, 2011:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">$</span> <span class="nx">curl</span> <span class="s2">&quot;http://localhost:8787/projects/systenant/2011/12&quot;</span> <span class="o">|</span> <span class="nx">python</span> <span class="o">-</span><span class="nx">mjson</span><span class="p">.</span><span class="nx">tool</span>
-<span class="p">{</span>
-    <span class="s2">&quot;period_end&quot;</span><span class="o">:</span> <span class="s2">&quot;2012-01-01T00:00:00Z&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;period_start&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-01T00:00:00Z&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;project&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;instances&quot;</span><span class="o">:</span> <span class="p">[</span>
-            <span class="p">{</span>
-                <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-15T18:22:33.887135Z&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-20T15:00:05.943989Z&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;instance_id&quot;</span><span class="o">:</span> <span class="mi">55</span><span class="p">,</span>
-                <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="mi">419852</span><span class="p">,</span>
-                <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">2332.511111111111</span><span class="p">,</span>
-                    <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">238849.13777777777</span><span class="p">,</span>
-                    <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">116.62555555555555</span>
-                <span class="p">}</span>
-            <span class="p">},</span>
-            <span class="p">{</span>
-                <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-15T18:23:06.452062Z&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-15T18:52:05.391688Z&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;instance_id&quot;</span><span class="o">:</span> <span class="mi">56</span><span class="p">,</span>
-                <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="mi">1738</span><span class="p">,</span>
-                <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">9.655555555555555</span><span class="p">,</span>
-                    <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">988.7288888888888</span><span class="p">,</span>
-                    <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">0.48277777777777775</span>
-                <span class="p">}</span>
-            <span class="p">},</span>
-            <span class="p">{</span>
-                <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-20T10:51:55.133627Z&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-20T15:00:06.150415Z&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;instance_id&quot;</span><span class="o">:</span> <span class="mi">57</span><span class="p">,</span>
-                <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="mi">14891</span><span class="p">,</span>
-                <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">330.9111111111111</span><span class="p">,</span>
-                    <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">33885.29777777778</span><span class="p">,</span>
-                    <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">16.545555555555556</span>
-                <span class="p">}</span>
-            <span class="p">},</span>
-            <span class="p">{</span>
-                <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-20T11:06:47.248165Z&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-20T15:00:05.741222Z&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;instance_id&quot;</span><span class="o">:</span> <span class="mi">58</span><span class="p">,</span>
-                <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="mi">13998</span><span class="p">,</span>
-                <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">311.06666666666666</span><span class="p">,</span>
-                    <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">31853.226666666666</span><span class="p">,</span>
-                    <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">15.553333333333333</span>
-                <span class="p">}</span>
-            <span class="p">},</span>
-            <span class="p">{</span>
-                <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-20T15:00:26.935897Z&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-                <span class="s2">&quot;instance_id&quot;</span><span class="o">:</span> <span class="mi">59</span><span class="p">,</span>
-                <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="mi">158737</span><span class="p">,</span>
-                <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">3527.488888888889</span><span class="p">,</span>
-                    <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">361214.8622222222</span><span class="p">,</span>
-                    <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">176.37444444444444</span>
-                <span class="p">}</span>
-            <span class="p">},</span>
-            <span class="p">{</span>
-                <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-20T15:01:46.182289Z&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-                <span class="s2">&quot;instance_id&quot;</span><span class="o">:</span> <span class="mi">60</span><span class="p">,</span>
-                <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="mi">158658</span><span class="p">,</span>
-                <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">3525.733333333333</span><span class="p">,</span>
-                    <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">361035.0933333333</span><span class="p">,</span>
-                    <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">176.28666666666666</span>
-                <span class="p">}</span>
-            <span class="p">},</span>
-            <span class="p">{</span>
-                <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-20T15:03:59.334251Z&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-                <span class="s2">&quot;instance_id&quot;</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
-                <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="mi">158525</span><span class="p">,</span>
-                <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">3522.777777777778</span><span class="p">,</span>
-                    <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">360732.44444444444</span><span class="p">,</span>
-                    <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">176.13888888888889</span>
-                <span class="p">}</span>
+        <span class="s2">&quot;instances&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;count&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">68495.83333333333</span><span class="p">,</span>
+                <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">7013973.333333333</span><span class="p">,</span>
+                <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">3424.7916666666665</span>
             <span class="p">}</span>
-        <span class="p">],</span>
-        <span class="s2">&quot;instances_count&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="p">},</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;systenant&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="mi">926399</span><span class="p">,</span>
-        <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://127.0.0.1:8787/projects/systenant&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">13560.144444444444</span><span class="p">,</span>
-            <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">1388558.7911111112</span><span class="p">,</span>
-            <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">678.0072222222223</span>
-        <span class="p">}</span>
+        <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://127.0.0.1:8787/projects/systenant&quot;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Statistics for all projects on December, 2011:</p>
+<p>Instances statistics for all projects on December, 2011:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="nx">$</span> <span class="nx">curl</span> <span class="s2">&quot;http://localhost:8787/projects-all/2011/12&quot;</span> <span class="o">|</span> <span class="nx">python</span> <span class="o">-</span><span class="nx">mjson</span><span class="p">.</span><span class="nx">tool</span>
 <span class="p">{</span>
     <span class="s2">&quot;period_end&quot;</span><span class="o">:</span> <span class="s2">&quot;2012-01-01T00:00:00Z&quot;</span><span class="p">,</span>
     <span class="s2">&quot;period_start&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-01T00:00:00Z&quot;</span><span class="p">,</span>
     <span class="s2">&quot;projects&quot;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">&quot;systenant&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;instances_count&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;instances&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;count&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+                <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">68495.83333333333</span><span class="p">,</span>
+                    <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">7013973.333333333</span><span class="p">,</span>
+                    <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">3424.7916666666665</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
             <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;systenant&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="mi">926399</span><span class="p">,</span>
-            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://127.0.0.1:8787/projects/systenant&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-                <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">13560.144444444444</span><span class="p">,</span>
-                <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">1388558.7911111112</span><span class="p">,</span>
-                <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">678.0072222222223</span>
-            <span class="p">}</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://127.0.0.1:8787/projects/systenant&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;tenant2&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;instances&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;count&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;tenant2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://127.0.0.1:8787/projects/tenant2&quot;</span>
         <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Images statistics (long form) for projects tenant2 on from 2011-01-01 00:00:00 till 2012-01-01 01:00:00:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">$</span> <span class="nx">curl</span> <span class="s2">&quot;http://localhost:8787/projects/tenant2?include=images-long&amp;period_start=2011-01-01T00%3A00%3A00Z&amp;period_end=2012-01-01T01%3A00%3A00Z&quot;</span> <span class="o">|</span> <span class="nx">python</span> <span class="o">-</span><span class="nx">mjson</span><span class="p">.</span><span class="nx">tool</span>
+<span class="p">{</span>
+    <span class="s2">&quot;period_end&quot;</span><span class="o">:</span> <span class="s2">&quot;2012-01-01T00:00:00Z&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;period_start&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-01-01T01:00:00Z&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;project&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;images&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;count&quot;</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="s2">&quot;items&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-28T16:25:21.852159Z&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;lifetime_sec&quot;</span><span class="o">:</span> <span class="mi">286478</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;SL61_ramdisk&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">0.0011111111111111111</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-28T16:25:22.615385Z&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;lifetime_sec&quot;</span><span class="o">:</span> <span class="mi">286477</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;SL61_kernel&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">0.2875</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-28T16:25:23.376856Z&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">&quot;lifetime_sec&quot;</span><span class="o">:</span> <span class="mi">286476</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;SL61&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">16.071666666666665</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-29T08:04:07.497591Z&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;destroyed_at&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+                    <span class="s2">&quot;lifetime_sec&quot;</span><span class="o">:</span> <span class="mi">230152</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;ramdisk2&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">0.0008333333333333334</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">16.36111111111111</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;tenant2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://127.0.0.1:8787/projects/tenant2&quot;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
+</div>
+
+        <footer>
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+                <img alt="Creative Commons License"
+                     style="border-width:0"
+                     src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png"/>
+            </a>
+            Grid Dynamics, 2011
+        </p>
+    </footer>
 
 
 </div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-right"><a href="#">Back to top</a></p>
-    <p>
-        &copy; Copyright 2011, Alessio Ababilov, Ivan Kolodyazhny (GridDynamics Openstack Core Team).<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.<br/>
-    </p>
-  </div>
-</footer>
-  </body>
+
+
+</body>
 </html>

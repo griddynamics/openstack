@@ -1,182 +1,104 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Quickstart &mdash; nova-billing v0.0.2 documentation</title>
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '0.0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-scrollspy.js"></script>
-    <link rel="top" title="nova-billing v0.0.2 documentation" href="index.html" />
-    <link rel="next" title="REST API" href="restapi.html" />
-    <link rel="prev" title="The nova_billing.vm_states Module" href="api/nova_billing.vm_states.html" />
-<script type="text/javascript">
-(function () {
-  /**
-   * Patch TOC list.
-   *
-   * Will mutate the underlying span to have a correct ul for nav.
-   *
-   * @param $span: Span containing nested UL's to mutate.
-   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
-   */
-  var patchToc = function ($span, minLevel) {
-    var $tocList = $("<ul/>").attr('class', "dropdown-menu"),
-      findA;
-
-    // Find all a "internal" tags, traversing recursively.
-    findA = function ($elem, level) {
-      var level = level || 0,
-        $items = $elem.find("> li > a.internal, > ul, > li > ul");
-
-      // Iterate everything in order.
-      $items.each(function (index, item) {
-        var $item = $(item),
-          tag = item.tagName.toLowerCase(),
-          pad = 10 + ((level - minLevel) * 10);
-
-        if (tag === 'a' && level >= minLevel) {
-          // Add to existing padding.
-          $item.css('padding-left', pad + "px");
-          // Add list element.
-          $tocList.append($("<li/>").append($item));
-        } else if (tag === 'ul') {
-          // Recurse.
-          findA($item, level + 1);
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <title>nova-billing Project Documentation &mdash; GridDynamics OpenStack Portal</title>
+    <link rel="stylesheet" href="/openstack/media/css/bootstrap.css">
+    <link rel="stylesheet" href="/openstack/media/css/site.css">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
         }
-      });
-    };
 
-    // Start construction and return.
-    findA($span);
+        #license {
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
 
-    // Wipe out old list and patch in new one.
-    return $span.empty("ul").append($tocList);
-  };
-
-  $(document).ready(function () {
-    // Patch the global and local TOC's to be bootstrap-compliant.
-    patchToc($("span.globaltoc"), 1);
-    patchToc($("span.localtoc"), 2);
-
-    // Activate.
-    $('#topbar').dropdown();
-  });
-}());
-</script>
-
-  </head>
-  <body>
-  <div class="topbar" data-scrollspy="scrollspy" >
-    <div class="topbar-inner">
-      <div class="container">
-        <a class="brand" href="index.html">nova-billing v0.0.2 documentation</a>
-        <ul class="nav">
-          
-            <li class="dropdown" data-dropdown="dropdown">
-  <a href="index.html"
-     class="dropdown-toggle">Site</a>
-  <span class="globaltoc"><ul class="simple">
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="devref/index.html">Developer Guide</a></li>
-</ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Quickstart</a></li>
-<li class="toctree-l1"><a class="reference internal" href="restapi.html">REST API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
-</ul>
-</span>
-</li>
-            
-          
-          
-            
-  <li><a href="api/nova_billing.vm_states.html"
-         title="Previous Chapter: The nova_billing.vm_states Module">&laquo; The nova_billing...</a></li>
-  <li><a href="restapi.html"
-         title="Next Chapter: REST API">REST API &raquo;</a></li>
-          
-          
-            
-          
-        </ul>
-        <ul class="nav secondary-nav">
-          
-            
-<form class="pull-left" action="search.html" method="get">
-  <input type="text" name="q" placeholder="Search" />
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </ul>
-      </div>
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <a class="brand" href="/openstack">GridDynamics OpenStack Portal</a>
+            <ul class="nav">
+                <li><a href="https://github.com/griddynamics/openstack/wiki">Wiki</a></li>
+                <li><a href="https://github.com/griddynamics/openstack/issues">Issues</a></li>
+                <li><a href="http://openstackgd.wordpress.com/">Blog</a></li>
+            </ul>
+        </div>
     </div>
-  </div>
+</div>
 
-<div class="container">
-   
-  <div class="section" id="quickstart">
+<div class="container-fluid">
+    <div class="sidebar sphinx-toc">
+                <h3>Navigation</h3>
+        <ul>
+            <li>
+                <a href="/openstack/docs/nova-billing">To the beginning</a>
+            </li>
+                            <li><a href="index.html"
+                       title="Welcome to nova-billing&#8217;s documentation!">&lt;- Welcome to nova-billing&#8217;s documentation!</a>
+                </li>
+                                        <li><a href="restapi.html"
+                       title="REST API">-&gt; REST API</a>
+                </li>
+                    </ul>
+    </div>
+
+    <div class="content"><div class="section" id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
 <p>Install the package:</p>
-<div class="highlight-shell"><pre># yum install nova-billing</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># yum install nova-billing</span>
+</pre></div>
 </div>
 <p>Start the server:</p>
-<div class="highlight-shell"><pre># /etc/init.d/nova-billing start</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># /etc/init.d/nova-billing start</span>
+</pre></div>
 </div>
 <p>Now instance state changes will be stored to a database.</p>
 <p>Try to run or terminate an instance and check that the daemon returns reports:</p>
-<div class="highlight-shell"><pre>$ curl http://localhost:8787/projects/systenant/2011 | python -mjson.tool</pre>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>curl http://localhost:8787/projects/systenant/2011 | python -mjson.tool
+</pre></div>
 </div>
 <p>Its output should look like this:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
     <span class="s2">&quot;period_end&quot;</span><span class="o">:</span> <span class="s2">&quot;2012-01-01T00:00:00Z&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;period_start&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-12-01T00:00:00Z&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;period_start&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-01-01T00:00:00Z&quot;</span><span class="p">,</span>
     <span class="s2">&quot;project&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;instances_count&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;instances&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;count&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">68495.83333333333</span><span class="p">,</span>
+                <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">7013973.333333333</span><span class="p">,</span>
+                <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">3424.7916666666665</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;systenant&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;running_sec&quot;</span><span class="o">:</span> <span class="mi">26</span><span class="p">,</span>
-        <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://127.0.0.1:8787/projects/systenant&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">13.0</span><span class="p">,</span>
-            <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">13.0</span><span class="p">,</span>
-            <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">7.0</span>
-        <span class="p">}</span>
+        <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://127.0.0.1:8787/projects/systenant&quot;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
+</div>
+
+        <footer>
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+                <img alt="Creative Commons License"
+                     style="border-width:0"
+                     src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png"/>
+            </a>
+            Grid Dynamics, 2011
+        </p>
+    </footer>
 
 
 </div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-right"><a href="#">Back to top</a></p>
-    <p>
-        &copy; Copyright 2011, Alessio Ababilov, Ivan Kolodyazhny (GridDynamics Openstack Core Team).<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.<br/>
-    </p>
-  </div>
-</footer>
-  </body>
+
+
+</body>
 </html>

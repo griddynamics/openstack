@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <title>Create OS Image Using Yum &mdash; GridDynamics OpenStack Portal</title>
+    <link rel="stylesheet" href="/openstack/media/css/bootstrap.css">
+    <link rel="stylesheet" href="/openstack/media/css/site.css">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+
+        #license {
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <a class="brand" href="/openstack">GridDynamics OpenStack Portal</a>
+            <ul class="nav">
+                <li><a href="https://github.com/griddynamics/openstack/wiki">Wiki</a></li>
+                <li><a href="https://github.com/griddynamics/openstack/issues">Issues</a></li>
+                <li><a href="http://openstackgd.wordpress.com/">Blog</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="content"><div class="document">
+<div class="section" id="create-os-image-using-yum">
+<h1>Create OS Image Using Yum</h1>
+<p>This page describes the easiest way to create image to run it with OpenStack.</p>
+<p>All you need is Yum-based distribution installed on your computer (RHEL,
+CentOS, Scientific Linux, Fedora, etc).</p>
+<p>Initially we will create our image:</p>
+<div class="highlight"><pre><span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>~/image <span class="nv">bs</span><span class="o">=</span>1M <span class="nv">count</span><span class="o">=</span>5120
+<span class="go">5120+0 records in</span>
+<span class="go">5120+0 records out</span>
+<span class="go">5368709120 bytes (5.4 GB) copied, 32.9141 s, 163 MB/s</span>
+<span class="gp">$</span> mkfs.ext4 image
+<span class="go">mke2fs 1.41.12 (17-May-2010)</span>
+<span class="go">image is not a block special device.</span>
+<span class="go">Proceed anyway? (y,n) y</span>
+<span class="go">Filesystem label=</span>
+<span class="go">OS type: Linux</span>
+<span class="go">Block size=4096 (log=2)</span>
+<span class="go">Fragment size=4096 (log=2)</span>
+<span class="go">Stride=0 blocks, Stripe width=0 blocks</span>
+<span class="go">327680 inodes, 1310720 blocks</span>
+<span class="go">65536 blocks (5.00%) reserved for the super user</span>
+<span class="go">First data block=0</span>
+<span class="go">Maximum filesystem blocks=1342177280</span>
+<span class="go">40 block groups</span>
+<span class="go">32768 blocks per group, 32768 fragments per group</span>
+<span class="go">8192 inodes per group</span>
+<span class="go">Superblock backups stored on blocks:</span>
+<span class="go">    32768, 98304, 163840, 229376, 294912, 819200, 884736</span>
+
+<span class="go">Writing inode tables: done</span>
+<span class="go">Creating journal (32768 blocks): done</span>
+<span class="go">Writing superblocks and filesystem accounting information: done</span>
+
+<span class="go">This filesystem will be automatically checked every 24 mounts or</span>
+<span class="go">180 days, whichever comes first.  Use tune2fs -c or -i to override</span>
+<span class="gp">$</span> mkdir ~/mnt
+<span class="gp">$</span> sudo mount -o loop ~/image ~/mnt
+</pre></div>
+<p>Then we will install needed packages to our image:</p>
+<div class="highlight"><pre><span class="gp">$</span> sudo yum install yum openssh-server --installroot<span class="o">=</span><span class="sb">`</span><span class="nb">cd</span> ~/mnt/; <span class="nb">pwd</span><span class="sb">`</span>
+<span class="go">...</span>
+</pre></div>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Probably you have to use <cite>--releasever</cite>
+parameter with this yum command it depends on you Yum configuration.</p>
+</div>
+<p>Then we will prepare basic configuration files.</p>
+<p>Probably we will want to install additional packages later:</p>
+<div class="highlight"><pre><span class="gp">$</span> sudo cp -a /etc/yum.repos.d/* ~/mnt/etc/yum.repos.d/
+</pre></div>
+<p>Then we have to create fstab (<cite>~/mnt/etc/fstab</cite>) with content:</p>
+<div class="highlight"><pre>/dev/vda       /                ext4       defaults          1 1
+tmpfs          /dev/shm         tmpfs      defaults          0 0
+devpts         /dev/pts         devpts     gid=5,mode=620    0 0
+sysfs          /sys             sysfs      defaults          0 0
+proc           /proc            proc       defaults          0 0
+</pre></div>
+<p>Then we have to configure network. To do it create a file
+<cite>~/mnt/etc/sysconfig/networks-scripts/ifcfg-eth0</cite> with content:</p>
+<div class="highlight"><pre><span class="na">DEVICE</span><span class="o">=</span><span class="s">eth0</span>
+<span class="na">BOOTPROTO</span><span class="o">=</span><span class="s">dhcp</span>
+<span class="na">ONBOOT</span><span class="o">=</span><span class="s">yes</span>
+</pre></div>
+<p>We have done. So we can umount our image and upload and register it in glance:</p>
+<div class="highlight"><pre><span class="gp">$</span> sudo umount ~/mnt
+<span class="gp">$</span> sudo nova-manage image all_register image <span class="se">\</span>
+<span class="go">  /boot/vmlinuz-2.6.32-131.0.15.el6.x86_64 \</span>
+<span class="go">  /boot/initrd-2.6.32-131.0.15.el6.x86_64kdump.img \</span>
+<span class="go">  my_os_user sample_image T x86_64</span>
+<span class="go">Image registered to 1 (00000001).</span>
+<span class="go">Image registered to 2 (00000002).</span>
+<span class="go">Image registered to 3 (00000003).</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+        <footer>
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+                <img alt="Creative Commons License"
+                     style="border-width:0"
+                     src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png"/>
+            </a>
+            Grid Dynamics, 2011
+        </p>
+    </footer>
+
+
+</div>
+
+
+</body>
+</html>

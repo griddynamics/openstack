@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <title>Nova2ools Documentation &mdash; GridDynamics OpenStack Portal</title>
+    <link rel="stylesheet" href="/openstack/media/css/bootstrap.css">
+    <link rel="stylesheet" href="/openstack/media/css/site.css">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+
+        #license {
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <a class="brand" href="/openstack">GridDynamics OpenStack Portal</a>
+            <ul class="nav">
+                <li><a href="https://github.com/griddynamics/openstack/wiki">Wiki</a></li>
+                <li><a href="https://github.com/griddynamics/openstack/issues">Issues</a></li>
+                <li><a href="http://openstackgd.wordpress.com/">Blog</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="content"><div class="document">
+<div class="section" id="nova2ools">
+<h1>Nova2ools</h1>
+<p>Set of simple utilities to work with OpenStack. As <cite>python-novaclient</cite> they are working via native Nova v1.1 API.</p>
+<p>They were created to provide ability to use GridDynamics extensions for OpenStack, like billing sytems, DNS as the
+Service, etc.</p>
+<p>Utilities are available in OpenStack-Core Yum repositories:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://osc-build.vm.griddynamics.net/openstack-rhel">http://osc-build.vm.griddynamics.net/openstack-rhel</a> — for RHEL</li>
+<li><a class="reference external" href="http://osc-build.vm.griddynamics.net/openstack-centos">http://osc-build.vm.griddynamics.net/openstack-centos</a> — for CentOS</li>
+<li><a class="reference external" href="http://osc-build.vm.griddynamics.net/openstack-fedora">http://osc-build.vm.griddynamics.net/openstack-fedora</a> — for Fedora</li>
+</ul>
+<p>All utilities are prefixed by <cite>nova2ools-</cite> and contain builtin documentation, for e. g.:</p>
+<div class="highlight"><pre><span class="gp">$</span> nova2ools-vms --help
+<span class="go">usage: nova2ools-vms [-h] [--debug] [--version] [--host HOST]</span>
+<span class="go">                     [--username USERNAME] [--api-key API_KEY]</span>
+<span class="go">                     [--project PROJECT]</span>
+<span class="go">                     {spawn,list,remove,show} ...</span>
+
+<span class="go">Manage Virtual Machines</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  {spawn,list,remove,show}</span>
+<span class="go">    list                List spawned VMs</span>
+<span class="go">    remove              Remove Virtual Machine</span>
+<span class="go">    show                Show information about VM</span>
+<span class="go">    spawn               Spawn a new VM</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help            show this help message and exit</span>
+<span class="go">  --debug               Run in debug mode</span>
+<span class="go">  --version, -v         Show version</span>
+<span class="go">  --host HOST           Nova API Host (with port)</span>
+<span class="go">  --username USERNAME, -u USERNAME</span>
+<span class="go">                        OpenStack user name</span>
+<span class="go">  --api-key API_KEY, -k API_KEY</span>
+<span class="go">                        OpenStack API secret key</span>
+<span class="go">  --project PROJECT, -p PROJECT</span>
+<span class="go">                        OpenStack Project(Tenant) name</span>
+<span class="gp">$</span> nova2ools-vms spawn --help
+<span class="go">usage: nova2ools-vms spawn [-h] -n NAME -i IMAGE -f FLAVOR [-p PASSWORD]</span>
+<span class="go">                           [-m [METADATA [METADATA ...]]] [-k KEYNAME]</span>
+<span class="go">                           [-j [INJECT [INJECT ...]]]</span>
+<span class="go">                           [-s [SECURITY_GROUPS [SECURITY_GROUPS ...]]]</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help            show this help message and exit</span>
+<span class="go">  -n NAME, --name NAME  VM name</span>
+<span class="go">  -i IMAGE, --image IMAGE</span>
+<span class="go">                        Image to use</span>
+<span class="go">  -f FLAVOR, --flavor FLAVOR</span>
+<span class="go">                        Flavor to use</span>
+<span class="go">  -p PASSWORD, --password PASSWORD</span>
+<span class="go">                        Administrator Password</span>
+<span class="go">  -m [METADATA [METADATA ...]], --metadata [METADATA [METADATA ...]]</span>
+<span class="go">                        Server Metadata</span>
+<span class="go">  -k KEYNAME, --keyname KEYNAME</span>
+<span class="go">                        Registered SSH Key Name</span>
+<span class="go">  -j [INJECT [INJECT ...]], --inject [INJECT [INJECT ...]]</span>
+<span class="go">                        Inject file to image (personality)</span>
+<span class="go">  -s [SECURITY_GROUPS [SECURITY_GROUPS ...]], --security-groups [SECURITY_GROUPS [SECURITY_GROUPS ...]]</span>
+<span class="go">                        Apply security groups to a new VM</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+        <footer>
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+                <img alt="Creative Commons License"
+                     style="border-width:0"
+                     src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png"/>
+            </a>
+            Grid Dynamics, 2011
+        </p>
+    </footer>
+
+
+</div>
+
+
+</body>
+</html>

@@ -1,161 +1,73 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Test Reports &mdash; Bunch v0.0.1 documentation</title>
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  false
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-scrollspy.js"></script>
-    <link rel="top" title="Bunch v0.0.1 documentation" href="index.html" />
-    <link rel="next" title="Road Map" href="roadmap.html" />
-    <link rel="prev" title="Running Tests" href="running_tests.html" />
-<script type="text/javascript">
-(function () {
-  /**
-   * Patch TOC list.
-   *
-   * Will mutate the underlying span to have a correct ul for nav.
-   *
-   * @param $span: Span containing nested UL's to mutate.
-   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
-   */
-  var patchToc = function ($span, minLevel) {
-    var $tocList = $("<ul/>").attr('class', "dropdown-menu"),
-      findA;
-
-    // Find all a "internal" tags, traversing recursively.
-    findA = function ($elem, level) {
-      var level = level || 0,
-        $items = $elem.find("> li > a.internal, > ul, > li > ul");
-
-      // Iterate everything in order.
-      $items.each(function (index, item) {
-        var $item = $(item),
-          tag = item.tagName.toLowerCase(),
-          pad = 10 + ((level - minLevel) * 10);
-
-        if (tag === 'a' && level >= minLevel) {
-          // Add to existing padding.
-          $item.css('padding-left', pad + "px");
-          // Add list element.
-          $tocList.append($("<li/>").append($item));
-        } else if (tag === 'ul') {
-          // Recurse.
-          findA($item, level + 1);
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <title>Bunch Project Documentation &mdash; GridDynamics OpenStack Portal</title>
+    <link rel="stylesheet" href="/openstack/media/css/bootstrap.css">
+    <link rel="stylesheet" href="/openstack/media/css/site.css">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
         }
-      });
-    };
 
-    // Start construction and return.
-    findA($span);
+        #license {
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
 
-    // Wipe out old list and patch in new one.
-    return $span.empty("ul").append($tocList);
-  };
-
-  $(document).ready(function () {
-    // Patch the global and local TOC's to be bootstrap-compliant.
-    patchToc($("span.globaltoc"), 1);
-    patchToc($("span.localtoc"), 2);
-
-    // Activate.
-    $('#topbar').dropdown();
-  });
-}());
-</script>
-
-  </head>
-  <body>
-  <div class="topbar" data-scrollspy="scrollspy" >
-    <div class="topbar-inner">
-      <div class="container">
-        <a class="brand" href="index.html">Bunch v0.0.1 documentation</a>
-        <ul class="nav">
-          
-            <li class="dropdown" data-dropdown="dropdown">
-  <a href="index.html"
-     class="dropdown-toggle">Site</a>
-  <span class="globaltoc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="writing_tests.html">Writing Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="running_tests.html">Running Tests</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Test Reports</a></li>
-<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Road Map</a></li>
-</ul>
-</span>
-</li>
-            <li class="dropdown" data-dropdown="dropdown">
-  <a href="#"
-     class="dropdown-toggle">Page</a>
-  <span class="localtoc"><ul>
-<li><a class="reference internal" href="#">Test Reports</a></li>
-</ul>
-</span>
-</li>
-          
-          
-            
-  <li><a href="running_tests.html"
-         title="previous chapter">&laquo; Running Tests</a></li>
-  <li><a href="roadmap.html"
-         title="next chapter">Road Map &raquo;</a></li>
-          
-          
-            
-          
-        </ul>
-        <ul class="nav secondary-nav">
-          
-            
-<form class="pull-left" action="search.html" method="get">
-  <input type="text" name="q" placeholder="Search" />
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </ul>
-      </div>
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <a class="brand" href="/openstack">GridDynamics OpenStack Portal</a>
+            <ul class="nav">
+                <li><a href="https://github.com/griddynamics/openstack/wiki">Wiki</a></li>
+                <li><a href="https://github.com/griddynamics/openstack/issues">Issues</a></li>
+                <li><a href="http://openstackgd.wordpress.com/">Blog</a></li>
+            </ul>
+        </div>
     </div>
-  </div>
+</div>
 
-<div class="container">
-   
-  <div class="section" id="test-reports">
+<div class="container-fluid">
+    <div class="sidebar sphinx-toc">
+                <h3>Navigation</h3>
+        <ul>
+            <li>
+                <a href="/openstack/docs/bunch">To the beginning</a>
+            </li>
+                            <li><a href="running_tests.html"
+                       title="Running Tests">&lt;- Running Tests</a>
+                </li>
+                                        <li><a href="roadmap.html"
+                       title="Road Map">-&gt; Road Map</a>
+                </li>
+                    </ul>
+    </div>
+
+    <div class="content"><div class="section" id="test-reports">
 <h1>Test Reports<a class="headerlink" href="#test-reports" title="Permalink to this headline">¶</a></h1>
 <p>Test results are written into xUnit XML test reports. Report is generated for each test executed under file name <cite>&lt;testname&gt;.result.xml</cite>. XML result files are placed into bunch results directory.</p>
 </div>
+</div>
+
+        <footer>
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+                <img alt="Creative Commons License"
+                     style="border-width:0"
+                     src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png"/>
+            </a>
+            Grid Dynamics, 2011
+        </p>
+    </footer>
 
 
 </div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-right"><a href="#">Back to top</a></p>
-    <p>
-        &copy; Copyright 2011, Grid Dynamics.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.<br/>
-    </p>
-  </div>
-</footer>
-  </body>
+
+
+</body>
 </html>

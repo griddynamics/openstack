@@ -4,7 +4,7 @@
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
-    <title>Bunch Project Documentation &mdash; GridDynamics OpenStack Portal</title>
+    <title>Repositories &mdash; GridDynamics OpenStack Portal</title>
     <link rel="stylesheet" href="/openstack/media/css/bootstrap.css">
     <link rel="stylesheet" href="/openstack/media/css/site.css">
     <style type="text/css">
@@ -32,29 +32,18 @@
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="sidebar sphinx-toc">
-                <h3>Navigation</h3>
-        <ul>
-            <li>
-                <a href="/openstack/docs/bunch">To the beginning</a>
-            </li>
-                            <li><a href="features.html"
-                       title="Features">&lt;- Features</a>
-                </li>
-                                        <li><a href="writing_tests.html"
-                       title="Writing Tests">-&gt; Writing Tests</a>
-                </li>
-                    </ul>
-    </div>
+<div class="container">
 
-    <div class="content"><div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>Just do the following:</p>
-<div class="highlight-bash"><div class="highlight"><pre>user@machine:~/projects<span class="nv">$ </span>git clone git.griddynamics.net:~skosyrev/repos/bunch
-user@machine:~/projects<span class="nv">$ </span><span class="nb">cd </span>bunch
-user@machine:~/projects/bunch<span class="nv">$ </span>python setup.py install
-</pre></div>
+    <div class="content"><div class="document">
+<div class="section" id="grid-dynamics-repositories">
+<h1>Grid Dynamics Repositories</h1>
+<p>Grid Dynamics provides repositories with OpenStack RPM packages and dependencies:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://yum.griddynamics.net/yum/diablo/">RHEL repository</a> — repository with RHEL build of Diablo release,</li>
+<li><a class="reference external" href="http://yum.griddynamics.net/yum/diablo-centos/">CentOS repository</a> — repository with Diablo build for CentOS,
+to use it you have to use EPEL + CR repositories as well.</li>
+</ul>
+<p>It is possible to use RHEL repository with Scientific Linux + EPEL.</p>
 </div>
 </div>
 </div>
