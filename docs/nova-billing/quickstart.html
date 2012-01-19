@@ -59,26 +59,29 @@
 </pre></div>
 </div>
 <p>Now instance state changes will be stored to a database.</p>
-<p>Try to run or terminate an instance and check that the daemon returns reports:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>curl http://localhost:8787/projects/systenant/2011 | python -mjson.tool
+<p>Try to run or terminate an instance and check that the daemon returns reports
+(replace <tt class="docutils literal"><span class="pre">999888777666</span></tt> with a valid Admin&#8217;s token):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>curl http://localhost:8787/projects -H <span class="s2">&quot;X-Auth-Token: 999888777666&quot;</span> | python -mjson.tool
 </pre></div>
 </div>
 <p>Its output should look like this:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
-    <span class="s2">&quot;period_end&quot;</span><span class="o">:</span> <span class="s2">&quot;2012-01-01T00:00:00Z&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;period_start&quot;</span><span class="o">:</span> <span class="s2">&quot;2011-01-01T00:00:00Z&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;project&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;instances&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;count&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
-            <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
-                <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">68495.83333333333</span><span class="p">,</span>
-                <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">7013973.333333333</span><span class="p">,</span>
-                <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">3424.7916666666665</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;systenant&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://127.0.0.1:8787/projects/systenant&quot;</span>
-    <span class="p">}</span>
+    <span class="s2">&quot;period_end&quot;</span><span class="o">:</span> <span class="s2">&quot;2012-02-01T00:00:00Z&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;period_start&quot;</span><span class="o">:</span> <span class="s2">&quot;2012-01-01T00:00:00Z&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;projects&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;instances&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;count&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+                <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;local_gb_h&quot;</span><span class="o">:</span> <span class="mf">68495.83333333333</span><span class="p">,</span>
+                    <span class="s2">&quot;memory_mb_h&quot;</span><span class="o">:</span> <span class="mf">7013973.333333333</span><span class="p">,</span>
+                    <span class="s2">&quot;vcpus_h&quot;</span><span class="o">:</span> <span class="mf">3424.7916666666665</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://127.0.0.1:8787/projects/systenant&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
