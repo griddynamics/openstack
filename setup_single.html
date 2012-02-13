@@ -97,12 +97,12 @@ mysqladmin -uroot -p<span class="nv">$PWD</span> create nova
 
 <span class="k">for </span>h in <span class="nv">$HOSTS</span> localhost; <span class="k">do</span>
 <span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;GRANT ALL PRIVILEGES ON $DB_NAME.* TO &#39;$DB_USER&#39;@&#39;$h&#39;</span>
-<span class="s2">IDENTIFIED BY &#39;$DB_PASS&#39;;&quot;</span> | mysql -uroot -p<span class="nv">$DB_PASS</span> mysql
+<span class="s2">IDENTIFIED BY &#39;$DB_PASS&#39;;&quot;</span> | mysql -uroot -p<span class="nv">$PWD</span> mysql
 <span class="k">done</span>
 <span class="nb">echo</span> <span class="s2">&quot;GRANT ALL PRIVILEGES ON $DB_NAME.* TO $DB_USER IDENTIFIED BY</span>
-<span class="s2">&#39;$DB_PASS&#39;;&quot;</span> | mysql -uroot -p<span class="nv">$DB_PASS</span> mysql
+<span class="s2">&#39;$DB_PASS&#39;;&quot;</span> | mysql -uroot -p<span class="nv">$PWD</span> mysql
 <span class="nb">echo</span> <span class="s2">&quot;GRANT ALL PRIVILEGES ON $DB_NAME.* TO root IDENTIFIED BY</span>
-<span class="s2">&#39;$DB_PASS&#39;;&quot;</span> | mysql -uroot -p<span class="nv">$DB_PASS</span> mysql
+<span class="s2">&#39;$DB_PASS&#39;;&quot;</span> | mysql -uroot -p<span class="nv">$PWD</span> mysql
 nova-manage db sync
 </pre></div>
 </div>
