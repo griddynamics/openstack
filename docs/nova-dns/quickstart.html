@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <title>Nova DNS Project Documentation &mdash; GridDynamics OpenStack Portal</title>
+    <link rel="stylesheet" href="/openstack/media/css/bootstrap.css">
+    <link rel="stylesheet" href="/openstack/media/css/site.css">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+
+        #license {
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <a class="brand" href="/openstack">Grid Dynamics OpenStack Portal</a>
+            <ul class="nav">
+                <li><a href="https://github.com/griddynamics/openstack/wiki">Wiki</a></li>
+                <li><a href="https://github.com/griddynamics/openstack/issues">Issues</a></li>
+                <li><a href="http://openstackgd.wordpress.com/">Blog</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="sidebar sphinx-toc">
+        <h3>Table of Content</h3>
+            <ul>
+<li><a class="reference internal" href="#">Quickstart</a><ul>
+<li><a class="reference internal" href="#environment">Environment</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li><a class="reference internal" href="#create-database">Create database</a></li>
+<li><a class="reference internal" href="#configure-powerdns">Configure PowerDNS</a></li>
+<li><a class="reference internal" href="#configure-nova-dns">Configure nova-dns</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+        <h3>Navigation</h3>
+        <ul>
+            <li>
+                <a href="/openstack/docs/nova-dns">To the beginning</a>
+            </li>
+                            <li><a href="index.html"
+                       title="Welcome to nova-dns&#8217;s documentation!">&lt;- Welcome to nova-dns&#8217;s documentation!</a>
+                </li>
+                                        <li><a href="restapi.html"
+                       title="REST API">-&gt; REST API</a>
+                </li>
+                    </ul>
+    </div>
+
+    <div class="content"><div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="environment">
+<h2>Environment<a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h2>
+<p>Quick installation of nova-dns with:</p>
+<ul class="simple">
+<li>use <strong>PowerDNS</strong> as DNS backend (with
+<em>nova_dns.dnsmanager.powerdns.Manager</em> <strong>dns_manager</strong>)</li>
+<li>use <strong>MySQL</strong> database as storage for <strong>PowerDNS</strong></li>
+<li>use <em>nova_dns.listener.simple.Listener</em> as AMQP listener</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>yum install nova-dns
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">installation from <em>epel</em> repository</p>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre>yum install pdns pdns-backend-mysql
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-database">
+<h3>Create database<a class="headerlink" href="#create-database" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">export </span><span class="nv">DBNAME</span><span class="o">=</span><span class="s2">&quot;pdns&quot;</span>
+<span class="nb">export </span><span class="nv">DBUSER</span><span class="o">=</span><span class="s2">&quot;pdns&quot;</span>
+<span class="nb">export </span><span class="nv">DBPASS</span><span class="o">=</span><span class="s2">&quot;pdns&quot;</span>
+<span class="nb">export </span><span class="nv">DBROOTPASS</span><span class="o">=</span><span class="s2">&quot;nova&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;create database $DBNAME; grant all on $DBNAME.* &quot;</span> <span class="se">\</span>
+       <span class="s2">&quot; to $DBUSER@localhost identified by &#39;$DBPASS&#39;&quot;</span> <span class="se">\</span>
+  | mysql -u root -p<span class="s2">&quot;$DBROOTPASS&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-powerdns">
+<h3>Configure PowerDNS<a class="headerlink" href="#configure-powerdns" title="Permalink to this headline">¶</a></h3>
+<p>Choose local ip addresses to bind, comma separated:</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">if you run nova-dns on same server with nova-compute,
+there are already started one or several dnsmasq on 53 port on local
+interfaces</p>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">export </span><span class="nv">LOCALIP</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;launch=gmysql</span>
+<span class="s2">gmysql-host=127.0.0.1</span>
+<span class="s2">gmysql-dbname=$DBNAME</span>
+<span class="s2">gmysql-user=$DBUSER</span>
+<span class="s2">gmysql-password=$DBPASS</span>
+<span class="s2">local-address=$LOCALIP&quot;</span> &gt; /etc/pdns/pdns.conf
+</pre></div>
+</div>
+<p>Start the server and add it to autostart:</p>
+<div class="highlight-bash"><div class="highlight"><pre>service pdns start
+chkconfig pdns on
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">quick setup of slave PowerDNS</p>
+</div>
+</div>
+<div class="section" id="configure-nova-dns">
+<h3>Configure nova-dns<a class="headerlink" href="#configure-nova-dns" title="Permalink to this headline">¶</a></h3>
+<p>locate nova.conf (usually in /etc/nova/nova.conf):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">export </span><span class="nv">NOVA</span><span class="o">=</span>/etc/nova/nova.conf
+</pre></div>
+</div>
+<p>add credentials for SQL connection:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;--dns_sql_connection=mysql://$DBUSER:$DBPASS@localhost/$DBNAME&quot;</span> &gt;&gt; <span class="nv">$NOVA</span>
+</pre></div>
+</div>
+<p>setup defaults for SOA:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;--dns_default_ttl=7200</span>
+<span class="s2">--dns_soa_primary=ns1@my_host.com</span>
+<span class="s2">--dns_soa_email=hostmaster@my_host.com&quot;</span> &gt;&gt; <span class="nv">$NOVA</span>
+</pre></div>
+</div>
+<p>setup zone for fixed_ip records:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;--dns_zone=cloud.my_host.com&quot;</span> &gt;&gt; <span class="nv">$NOVA</span>
+</pre></div>
+</div>
+<p>setup ns servers:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">LOCALDNS</span><span class="o">=</span><span class="sb">`</span>perl -e <span class="s1">&#39;$ns=1; print join(&quot;,&quot;, map {sprintf &quot;ns%d:%s&quot;, $ns++, $_} split /\s*,\s*/,$ARGV[0])&#39;</span> <span class="s2">&quot;$LOCALIP&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;--dns_ns=$LOCALIP&quot;</span> &gt;&gt; <span class="nv">$NOVA</span>
+</pre></div>
+</div>
+<p>start service:</p>
+<div class="highlight-bash"><div class="highlight"><pre>service nova-dns start
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+        <footer>
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+                <img alt="Creative Commons License"
+                     style="border-width:0"
+                     src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png"/>
+            </a>
+            Grid Dynamics, 2011
+        </p>
+    </footer>
+
+
+</div>
+
+
+</body>
+</html>

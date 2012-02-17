@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <title>Nova DNS Project Documentation &mdash; GridDynamics OpenStack Portal</title>
+    <link rel="stylesheet" href="/openstack/media/css/bootstrap.css">
+    <link rel="stylesheet" href="/openstack/media/css/site.css">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+
+        #license {
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <a class="brand" href="/openstack">Grid Dynamics OpenStack Portal</a>
+            <ul class="nav">
+                <li><a href="https://github.com/griddynamics/openstack/wiki">Wiki</a></li>
+                <li><a href="https://github.com/griddynamics/openstack/issues">Issues</a></li>
+                <li><a href="http://openstackgd.wordpress.com/">Blog</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="sidebar sphinx-toc">
+        <h3>Table of Content</h3>
+            <ul>
+<li><a class="reference internal" href="#">Configuration</a><ul>
+<li><a class="reference internal" href="#options-introduced-by-nova-dns">Options, introduced by Nova DNS</a><ul>
+<li><a class="reference internal" href="#core-options">Core options</a></li>
+<li><a class="reference internal" href="#nova-dns-dnsmanager-powerdns">nova_dns.dnsmanager.powerdns</a></li>
+<li><a class="reference internal" href="#nova-dns-listener-simple">nova_dns.listener.simple</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#options-used-by-nova-dns-to-connect-to-rabbit">Options, used by Nova DNS to connect to rabbit</a></li>
+<li><a class="reference internal" href="#logs">Logs</a></li>
+</ul>
+</li>
+</ul>
+        <h3>Navigation</h3>
+        <ul>
+            <li>
+                <a href="/openstack/docs/nova-dns">To the beginning</a>
+            </li>
+                            <li><a href="restapi.html"
+                       title="REST API">&lt;- REST API</a>
+                </li>
+                                </ul>
+    </div>
+
+    <div class="content"><div class="section" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<p>Nova DNS uses the same configuration file <tt class="docutils literal"><span class="pre">nova.conf</span></tt> as nova
+daemons and utilities. This file is usually located at <tt class="docutils literal"><span class="pre">/etc/nova</span></tt> directory.</p>
+<div class="section" id="options-introduced-by-nova-dns">
+<h2>Options, introduced by Nova DNS<a class="headerlink" href="#options-introduced-by-nova-dns" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="core-options">
+<h3>Core options<a class="headerlink" href="#core-options" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">dns_manager</span></tt>
+DNS manager class
+(string, <em>nova_dns.dnsmanager.powerdns.Manager</em> by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_listener</span></tt>
+Class to process AMQP messages
+(string, <em>nova_dns.listener.simple.Listener</em> by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_api_paste_config</span></tt>,
+File name for the paste.deploy config for nova-dns api
+(string, <em>/etc/nova-dns/dns-api-paste.ini</em> by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_listen</span></tt>
+IP address for DNS API to listen
+(string, <em>0.0.0.0</em> by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_listen_port</span></tt>
+DNS API port
+(integer, <em>15353</em> by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_default_ttl</span></tt>
+Default record ttl
+(integer, <em>7200</em>  by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_soa_primary</span></tt>
+Name server that will respond authoritatively for the domain by default)
+(string, <em>ns1</em>  by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_soa_email</span></tt>
+(string,  <em>hostmaster</em>  by default)
+Email address of the person responsible for this zone  by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_soa_refresh</span></tt>
+The time when the slave will try to refresh the zone from the master  by default)
+(integer,  <em>10800</em>  by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_soa_retry</span></tt>
+Time between retries if the slave fails to contact the master
+(integer,  <em>3600</em>  by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_soa_expire</span></tt>
+Indicates when the zone data is no longer authoritative
+(integer, <em>604800</em>  by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_zone</span></tt>
+Nova DNS base zone
+(string, <em>localzone</em> by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_auth</span></tt>
+&#8220;Auth mode in REST API&#8221;
+(enum (&#8220;none&#8221;, &#8220;keystone&#8221;), <em>keystone</em> by default)</li>
+<li><tt class="docutils literal"><span class="pre">dns_nova_auth</span></tt>
+&#8220;Auth mode in Nova&#8221;
+(enum (&#8220;none&#8221;, &#8220;keystone&#8221;), <em>keystone</em> by defautl)</li>
+<li><tt class="docutils literal"><span class="pre">dns_auth_role</span></tt>
+&#8220;Role name in REST API&#8221;
+(string, <em>DNS_Admin</em> by default)</li>
+</ul>
+</div>
+<div class="section" id="nova-dns-dnsmanager-powerdns">
+<h3>nova_dns.dnsmanager.powerdns<a class="headerlink" href="#nova-dns-dnsmanager-powerdns" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">dns_sql_connection</span></tt>
+Connection string for powerdns sql database
+(string <tt class="docutils literal"><span class="pre">mysql://pdns:pdns&#64;localhost/pdns</span></tt>, by default)</li>
+</ul>
+</div>
+<div class="section" id="nova-dns-listener-simple">
+<h3>nova_dns.listener.simple<a class="headerlink" href="#nova-dns-listener-simple" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">dns_ns</span></tt>
+Name servers, in format ns1:ip1, ns2:ip2
+(list, <em>ns1:127.0.0.1</em> by default)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="options-used-by-nova-dns-to-connect-to-rabbit">
+<h2>Options, used by Nova DNS to connect to rabbit<a class="headerlink" href="#options-used-by-nova-dns-to-connect-to-rabbit" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">rabbit_host</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">rabbit_port</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">rabbit_userid</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">rabbit_password</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">rabbit_virtual_host</span></tt></li>
+</ul>
+</div>
+<div class="section" id="logs">
+<h2>Logs<a class="headerlink" href="#logs" title="Permalink to this headline">¶</a></h2>
+<p>The daemon saves logs to <tt class="docutils literal"><span class="pre">nova-dns.log</span></tt> file in nova logs
+directory (e.g., <tt class="docutils literal"><span class="pre">/var/log/nova</span></tt>).</p>
+</div>
+</div>
+</div>
+
+        <footer>
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+                <img alt="Creative Commons License"
+                     style="border-width:0"
+                     src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png"/>
+            </a>
+            Grid Dynamics, 2011
+        </p>
+    </footer>
+
+
+</div>
+
+
+</body>
+</html>
