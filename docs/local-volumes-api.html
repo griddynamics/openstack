@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <title>Local Volumes API &mdash; GridDynamics OpenStack Portal</title>
+    <link rel="stylesheet" href="/openstack/media/css/bootstrap.css">
+    <link rel="stylesheet" href="/openstack/media/css/site.css">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+
+        #license {
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <a class="brand" href="/openstack">Grid Dynamics OpenStack Portal</a>
+            <ul class="nav">
+                <li><a href="https://github.com/griddynamics/openstack/wiki">Wiki</a></li>
+                <li><a href="https://github.com/griddynamics/openstack/issues">Issues</a></li>
+                <li><a href="http://openstackgd.wordpress.com/">Blog</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="content"><div class="document">
+<div class="section" id="local-volumes-api">
+<h1>Local Volumes API</h1>
+<p>We implemented support for local volumes - analogues of local disks,  that are located on same instance and attached to VM directly. This functionality is provided by Nova API gd-local-volumes extension. Local volumes are stored in same format, as VM disks. You can use nova-volumes and local volumes on the same instance in the same time.</p>
+<p>Local volumes API is much like API for ordinary volumes.
+Lets overlook all possible calls.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td><strong>POST</strong>    |     <tt class="docutils literal"><span class="pre">v1.1/gd-local-volumes</span></tt> |   Create Local Volume</td>
+</tr>
+</tbody>
+</table>
+<p>Request parameters:</p>
+<blockquote>
+<p><em>instance_id</em>   VM for which local volume will be created.</p>
+<p><em>snapshot_id</em>   (Optional) Id of snapshot that will be used as base for local volume.</p>
+<p><em>device</em>        Device name of local volume in guest OS.</p>
+<p><em>size</em>          (Optional) Size of local volume. Default size unit is byte. Other supported units: b, K, M, G.</p>
+</blockquote>
+<p>If <em>size</em> is not specified, you must specify <em>snapshot_id</em>.</p>
+<p>Request JSON example:</p>
+<pre class="literal-block">
+{
+        &quot;volume&quot;: {
+                &quot;instance_id&quot;: &quot;1&quot;,
+                &quot;snapshot_id&quot;: &quot;2&quot;,
+                &quot;device&quot;: &quot;/dev/vdb&quot;,
+                &quot;size&quot;: &quot;1440000&quot;,
+        }
+}
+</pre>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td><strong>DELETE</strong>  |  <tt class="docutils literal"><span class="pre">v1.1/gd-local-volumes/{volume_id}</span></tt>  |  Delete Local Volume</td>
+</tr>
+</tbody>
+</table>
+<p>Request parameters:</p>
+<blockquote>
+<em>volume_id</em>     Id of local volume.</blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td><strong>POST</strong>  |  <tt class="docutils literal"><span class="pre">v1.1/gd-local-volumes/{volume_id}</span></tt> |   Resize Local Volume</td>
+</tr>
+</tbody>
+</table>
+<p>Request parameters:</p>
+<blockquote>
+<p><em>volume_id</em>     Id of local volume.</p>
+<p><em>size</em>  New size of local volume. No underlying filesystem resize is performed during this operation.</p>
+</blockquote>
+<p>Request JSON example:</p>
+<pre class="literal-block">
+{
+        &quot;volume&quot;: {
+                &quot;size&quot;: &quot;124000&quot;
+        }
+}
+</pre>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td><strong>GET</strong>  |   <tt class="docutils literal"><span class="pre">v1.1/gd-local-volumes</span></tt>   |    List Local Volumes</td>
+</tr>
+</tbody>
+</table>
+<p>This request don't require any parameters.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td><strong>POST</strong>  |  <tt class="docutils literal"><span class="pre">v1.1/gd-local-volumes-snapshotting</span></tt> |  Take snapshot of Local Volume</td>
+</tr>
+</tbody>
+</table>
+<p>Request parameters:</p>
+<blockquote>
+<p><em>volume_id</em>     Id of local volume for snapshot</p>
+<p><em>name</em>  Name of snapshot</p>
+</blockquote>
+<p>Request JSON example:</p>
+<pre class="literal-block">
+{
+        &quot;volume_id&quot;: &quot;2&quot;,
+        &quot;name&quot;: &quot;sample_snapshot&quot;
+}
+</pre>
+</div>
+</div>
+</div>
+
+        <footer>
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+                <img alt="Creative Commons License"
+                     style="border-width:0"
+                     src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png"/>
+            </a>
+            Grid Dynamics, 2011
+        </p>
+    </footer>
+
+
+</div>
+
+
+</body>
+</html>
