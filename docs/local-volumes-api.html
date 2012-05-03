@@ -5,8 +5,8 @@
 <head>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
     <title>Local Volumes API &mdash; GridDynamics OpenStack Portal</title>
-    <link rel="stylesheet" href="/openstack/media/css/bootstrap.css">
-    <link rel="stylesheet" href="/openstack/media/css/site.css">
+    <link rel="stylesheet" href="/media/css/bootstrap.css">
+    <link rel="stylesheet" href="/media/css/site.css">
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -22,7 +22,7 @@
 <div class="topbar">
     <div class="fill">
         <div class="container">
-            <a class="brand" href="/openstack">Grid Dynamics OpenStack Portal</a>
+            <a class="brand" href="/">Grid Dynamics OpenStack Portal</a>
             <ul class="nav">
                 <li><a href="https://github.com/griddynamics/openstack/wiki">Wiki</a></li>
                 <li><a href="https://github.com/griddynamics/openstack/issues">Issues</a></li>
@@ -58,16 +58,15 @@ Lets overlook all possible calls.</p>
 </blockquote>
 <p>If <em>size</em> is not specified, you must specify <em>snapshot_id</em>.</p>
 <p>Request JSON example:</p>
-<pre class="literal-block">
-{
-        &quot;volume&quot;: {
-                &quot;instance_id&quot;: &quot;1&quot;,
-                &quot;snapshot_id&quot;: &quot;2&quot;,
-                &quot;device&quot;: &quot;/dev/vdb&quot;,
-                &quot;size&quot;: &quot;1440000&quot;,
-        }
-}
-</pre>
+<div class="highlight"><pre><span class="go">{</span>
+<span class="go">        &quot;volume&quot;: {</span>
+<span class="go">                &quot;instance_id&quot;: &quot;1&quot;,</span>
+<span class="go">                &quot;snapshot_id&quot;: &quot;2&quot;,</span>
+<span class="go">                &quot;device&quot;: &quot;/dev/vdb&quot;,</span>
+<span class="go">                &quot;size&quot;: &quot;1440000&quot;,</span>
+<span class="go">        }</span>
+<span class="go">}</span>
+</pre></div>
 <table border="1" class="docutils">
 <colgroup>
 <col width="100%" />
@@ -95,13 +94,12 @@ Lets overlook all possible calls.</p>
 <p><em>size</em>  New size of local volume. No underlying filesystem resize is performed during this operation.</p>
 </blockquote>
 <p>Request JSON example:</p>
-<pre class="literal-block">
-{
-        &quot;volume&quot;: {
-                &quot;size&quot;: &quot;124000&quot;
-        }
-}
-</pre>
+<div class="highlight"><pre><span class="go">{</span>
+<span class="go">        &quot;volume&quot;: {</span>
+<span class="go">                &quot;size&quot;: &quot;124000&quot;</span>
+<span class="go">        }</span>
+<span class="go">}</span>
+</pre></div>
 <table border="1" class="docutils">
 <colgroup>
 <col width="100%" />
@@ -127,12 +125,11 @@ Lets overlook all possible calls.</p>
 <p><em>name</em>  Name of snapshot</p>
 </blockquote>
 <p>Request JSON example:</p>
-<pre class="literal-block">
-{
-        &quot;volume_id&quot;: &quot;2&quot;,
-        &quot;name&quot;: &quot;sample_snapshot&quot;
-}
-</pre>
+<div class="highlight"><pre><span class="go">{</span>
+<span class="go">        &quot;volume_id&quot;: &quot;2&quot;,</span>
+<span class="go">        &quot;name&quot;: &quot;sample_snapshot&quot;</span>
+<span class="go">}</span>
+</pre></div>
 </div>
 </div>
 </div>
